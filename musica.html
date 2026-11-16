@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Música — DJ Chimango</title>
+<meta name="description" content="Música de DJ Chimango. Álbum Locoto Trip (2018) en Spotify.">
+<meta property="og:title" content="Música — DJ Chimango">
+<meta property="og:image" content="assets/musica-bg-desktop.jpg">
+<meta name="theme-color" content="#3cc6c4">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+:root{--ink:#062a33;--glass:rgba(255,255,255,.28);--glass-b:rgba(255,255,255,.6);--line:rgba(6,42,51,.18);--btn:#062a33}
+body.byc{--ink:#f4f1ea;--glass:rgba(10,10,10,.42);--glass-b:rgba(244,241,234,.28);--line:rgba(244,241,234,.18);--btn:#e8322b}
+html,body{margin:0;background:#3cc6c4;color:var(--ink);font-family:'DM Mono',ui-monospace,monospace;transition:color .6s ease}
+body.byc{background:#1d1d1d}
+a{color:var(--ink)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+
+.page{position:relative;min-height:100vh;min-height:100svh;overflow:hidden}
+.layer{position:absolute;inset:0;background-position:center;background-size:cover;background-repeat:no-repeat;pointer-events:none;transition:opacity .9s ease}
+.l-pool{background-image:url(assets/musica-bg-desktop.jpg)}
+.l-byc{background-image:url(assets/byc-bg-desktop.jpg);opacity:0}
+.tint-byc{background:linear-gradient(90deg,rgba(0,0,0,0) 0%,rgba(0,0,0,0) 40%,rgba(0,0,0,.45) 62%,rgba(0,0,0,.65) 100%),linear-gradient(180deg,rgba(0,0,0,.45) 0%,rgba(0,0,0,0) 22%);opacity:0}
+.byc .l-byc,.byc .tint-byc{opacity:1}
+.fx{transition:opacity .6s ease}
+.byc .fx,.byc .tint{opacity:0}
+.smoke{position:absolute;overflow:hidden;opacity:0;pointer-events:none;transition:opacity .9s ease;-webkit-mask-image:radial-gradient(ellipse 62% 72% at 50% 52%,#000 25%,transparent 78%);mask-image:radial-gradient(ellipse 62% 72% at 50% 52%,#000 25%,transparent 78%)}
+.byc .smoke{opacity:1}
+.sm{position:absolute;top:-4%;bottom:-4%;left:-8%;right:-8%;background-image:url(assets/smoke.png);background-repeat:repeat;mix-blend-mode:screen}
+.s1{background-size:var(--t1,420px) var(--t1,420px);opacity:.55;animation:rise1 20s linear infinite,sway 8s ease-in-out infinite alternate}
+.s2{background-size:var(--t2,620px) var(--t2,620px);opacity:.38;animation:rise2 32s linear infinite,sway 12s ease-in-out infinite alternate-reverse}
+@keyframes rise1{to{background-position:0 calc(-1 * var(--t1,420px))}}
+@keyframes rise2{to{background-position:0 calc(-1 * var(--t2,620px))}}
+@keyframes sway{from{transform:translateX(-2.5%)}to{transform:translateX(2.5%)}}
+@media (prefers-reduced-motion: reduce){.sm{animation:none}}
+.discs{display:flex;align-items:center;gap:18px}
+.disc{position:relative;width:84px;height:84px;padding:0;border:0;border-radius:4px;cursor:pointer;background:#000 center/cover no-repeat;box-shadow:0 10px 24px rgba(0,0,0,.25);outline:2px solid transparent;outline-offset:4px;transition:transform .25s ease,outline-color .25s ease,filter .25s ease;filter:saturate(.6) brightness(.85)}
+.disc:hover{transform:translateY(-3px);filter:none}
+.disc[aria-pressed="true"]{outline-color:var(--ink);filter:none}
+.disc-l{background-image:url(https://i.scdn.co/image/ab67616d0000e1a35ca0c9251a9f864bfd4e370d)}
+.disc-b{background-image:url(assets/byc-cover.jpg)}
+.badge{position:absolute;top:-12px;right:-16px;z-index:2;padding:5px 9px;border-radius:999px;background:#e8322b;color:#fff;font-family:'Syne',sans-serif;font-weight:800;font-size:11px;line-height:1;letter-spacing:.08em;text-transform:uppercase;box-shadow:0 6px 14px rgba(0,0,0,.35);transform:rotate(8deg);animation:pop 2.4s ease-in-out infinite}
+@keyframes pop{0%,100%{transform:rotate(8deg) scale(1)}50%{transform:rotate(8deg) scale(1.08)}}
+.hint{font-size:11px;letter-spacing:.2em;text-transform:uppercase;opacity:.85}
+.album[hidden]{display:none}
+.album{display:flex;flex-direction:column;gap:16px;animation:fadeIn .5s ease both}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.new{color:#ff6b5e !important}
+.count{background:var(--glass);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid var(--glass-b);border-radius:4px;padding:28px 24px;display:flex;flex-direction:column;gap:14px}
+.count-n{font-family:'Syne',sans-serif;font-weight:800;font-size:72px;line-height:.9}
+.count-l{font-size:13px;letter-spacing:.16em;text-transform:uppercase}
+.count p{margin:0;font-size:14px;line-height:1.6;max-width:460px}
+.btns{display:flex;gap:12px;flex-wrap:wrap}
+.ghost{display:inline-flex;align-items:center;gap:10px;height:48px;padding:0 22px;border-radius:999px;border:1px solid var(--ink);text-decoration:none;font-size:13px;letter-spacing:.16em;text-transform:uppercase}
+.tint{position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(60,198,196,0) 0%,rgba(60,198,196,0) 42%,rgba(120,226,222,.35) 60%,rgba(150,236,232,.55) 100%)}
+.ripples{position:absolute;left:25vw;top:38vh;width:0;height:0;pointer-events:none}
+.ripple{position:absolute;left:-260px;top:-260px;width:520px;height:520px;border-radius:50%;border:1.5px solid rgba(255,255,255,.75);animation:ripple 6s ease-out infinite}
+.ripple:nth-child(2){animation-delay:-2s}
+.ripple:nth-child(3){animation-delay:-4s}
+@keyframes ripple{0%{transform:scale(.35);opacity:0}15%{opacity:.9}100%{transform:scale(1.6);opacity:0}}
+.wave{position:absolute;left:0;bottom:210px;width:1600px;opacity:.7;animation:drift 9s ease-in-out infinite alternate;pointer-events:none}
+@keyframes drift{to{transform:translateX(-40px)}}
+
+/* Header */
+.header{position:absolute;top:0;left:0;right:0;z-index:3;display:flex;align-items:center;justify-content:space-between;padding:40px 64px}
+.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:26px;letter-spacing:.04em;text-transform:uppercase;text-decoration:none}
+.nav{display:flex;align-items:center;gap:44px}
+.nav-link{position:relative;font-size:14px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;text-decoration:none}
+.nav-link::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:2px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .25s ease}
+.nav-link:hover::after,.nav-link.active::after{transform:scaleX(1)}
+.icons{display:flex;gap:8px;margin-left:4px}
+.icon-link{display:flex;align-items:center;justify-content:center;width:44px;height:44px;transition:transform .2s}
+.icon-link:hover{transform:translateY(-1px)}
+.menu-btn{display:none;width:48px;height:48px;border:0;background:transparent;color:var(--ink);cursor:pointer;padding:0;align-items:center;justify-content:center}
+.menu-btn .i-close{display:none}
+.menu-open .menu-btn{color:#f4f1ea}
+.menu-open .logo{color:#f4f1ea}
+.menu-open .menu-btn .i-open{display:none}
+.menu-open .menu-btn .i-close{display:block}
+
+/* Título */
+.heading{position:absolute;left:64px;bottom:56px;z-index:1;display:flex;flex-direction:column;gap:8px}
+.eyebrow{font-size:12px;font-weight:500;letter-spacing:.3em;text-transform:uppercase}
+.heading h1{margin:0;font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(72px,8.4vw,120px);line-height:.85;text-transform:uppercase}
+
+/* Álbum */
+.music{position:relative;z-index:1;margin-left:auto;width:min(600px,44vw);padding:116px 64px 80px 0;box-sizing:content-box;display:flex;flex-direction:column;gap:18px}
+.album-head{display:flex;flex-direction:column;gap:6px}
+.album-head h2{margin:0;font-family:'Syne',sans-serif;font-weight:800;font-size:68px;line-height:.9;text-transform:uppercase}
+.album-meta{font-size:13px;white-space:nowrap;padding-bottom:6px}
+.glass{background:var(--glass);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid var(--glass-b);border-radius:4px;transition:background .6s ease}
+.tracks{list-style:none;margin:0;padding:6px 0}
+.row{display:grid;grid-template-columns:40px minmax(0,1fr) 56px 36px;align-items:center;gap:12px;min-height:44px;padding:0 14px;text-decoration:none;border-bottom:1px solid var(--line);transition:background .2s}
+.tracks li:last-child .row{border-bottom:0}
+.row:hover{background:rgba(255,255,255,.3)}
+.n{font-size:12px;letter-spacing:.1em}
+.t{font-family:'Syne',sans-serif;font-weight:600;font-size:18px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.d{font-size:13px;text-align:right}
+.pl{display:flex;justify-content:flex-end;opacity:0;transition:opacity .2s}
+.row:hover .pl,.row:focus-visible .pl{opacity:1}
+.player{border-radius:12px;overflow:hidden;line-height:0}
+.player iframe{width:100%;height:152px;border:0}
+.cta{align-self:flex-start;display:inline-flex;align-items:center;gap:12px;height:48px;padding:0 22px;border-radius:999px;background:var(--btn);color:#fff !important;text-decoration:none;font-size:13px;letter-spacing:.16em;text-transform:uppercase;transition:transform .2s,background .2s}
+.cta:hover{transform:translateY(-2px)}
+
+/* Mobile */
+@media (max-width: 860px){
+  .layer{background-size:100% auto;background-position:top center}
+  .l-pool{background-image:url(assets/musica-bg-mobile.jpg)}
+  .l-byc{background-image:url(assets/byc-bg-mobile.jpg)}
+  .tint,.wave,.tint-byc{display:none}
+  .disc{width:76px;height:76px}
+  .hint{font-size:10px}
+  .count{padding:22px 20px}
+  .count-n{font-size:56px}
+  .count-l{font-size:11px}
+  .count p{font-size:13px}
+  .btns{flex-direction:column}
+  .btns a{justify-content:center;height:52px}
+  .ripples{left:50vw;top:38vw}
+  .ripple{left:-170px;top:-170px;width:340px;height:340px}
+  .header{padding:20px 20px 0 24px}
+  .logo{font-size:20px}
+  .menu-btn{display:flex}
+  .nav{position:fixed;inset:0;z-index:-1;flex-direction:column;align-items:flex-start;justify-content:center;gap:28px;padding:0 32px;background:rgba(6,42,51,.92);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);opacity:0;visibility:hidden;transition:opacity .28s ease,visibility .28s}
+  .menu-open .nav{opacity:1;visibility:visible}
+  .nav-link{font-family:'Syne',sans-serif;font-weight:800;font-size:40px;letter-spacing:.02em;color:#f4f1ea}
+  .nav-link.active{color:#7fe7e3}
+  .nav-link::after{display:none}
+  .icons{margin:12px 0 0 -10px}
+  .icon-link{color:#f4f1ea}
+  .heading{position:relative;left:auto;bottom:auto;padding:max(112vw,420px) 24px 0;gap:6px}
+  .eyebrow{font-size:11px}
+  .heading h1{font-size:72px}
+  .music{width:auto;margin:0;padding:24px 24px 64px;box-sizing:border-box;gap:20px}
+  .album-head .eyebrow{font-size:11px}
+  .album-head h2{font-size:40px}
+  .album-meta{font-size:11px;letter-spacing:.24em;text-transform:uppercase;padding:0}
+  .row{grid-template-columns:30px minmax(0,1fr) 44px;min-height:52px;gap:10px}
+  .pl{display:none}
+  .t{font-size:16px;white-space:normal}
+  .cta{align-self:stretch;justify-content:center;height:52px}
+}
+@media (prefers-reduced-motion: reduce){.ripple,.wave{animation:none}.ripple{opacity:.5}}
+</style>
+</head>
+<body>
+<main class="page">
+  <div class="layer l-pool" aria-hidden="true"></div>
+  <div class="layer l-byc" aria-hidden="true"></div>
+  <div class="smoke" id="smoke" aria-hidden="true"><div class="sm s1"></div><div class="sm s2"></div></div>
+  <div class="tint" aria-hidden="true"></div>
+  <div class="layer tint-byc" aria-hidden="true"></div>
+  <div class="ripples fx" aria-hidden="true"><div class="ripple"></div><div class="ripple"></div><div class="ripple"></div></div>
+  <svg class="wave fx" aria-hidden="true" viewBox="0 0 1600 60" fill="none"><path d="M0 30 Q 40 6 80 30 T 160 30 T 240 30 T 320 30 T 400 30 T 480 30 T 560 30 T 640 30 T 720 30 T 800 30 T 880 30 T 960 30 T 1040 30 T 1120 30 T 1200 30 T 1280 30 T 1360 30 T 1440 30 T 1520 30 T 1600 30" stroke="#fff" stroke-width="1.5"/></svg>
+
+  <header class="header" id="header">
+    <a class="logo" href="index.html">DJ Chimango</a>
+    <button class="menu-btn" id="menuBtn" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav">
+      <svg class="i-open" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 8h16"/><path d="M4 16h16"/></svg>
+      <svg class="i-close" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12"/><path d="M18 6L6 18"/></svg>
+    </button>
+    <nav class="nav" id="nav" aria-label="Principal">
+      <a class="nav-link active" href="musica.html" aria-current="page">Música</a>
+      <a class="nav-link" href="videos.html">Videos</a>
+      <a class="nav-link" href="fechas.html">Fechas</a>
+      <a class="nav-link" href="chimango.html">Chimango</a>
+      <div class="icons">
+        <!-- Reemplazar por el link real de Instagram -->
+        <a class="icon-link" href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram de DJ Chimango">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r=".9" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a class="icon-link" href="https://open.spotify.com/intl-es/artist/6CBacBuu03rdsobTowKmoe" target="_blank" rel="noopener" aria-label="Spotify de DJ Chimango">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M7 9.4c3.4-1 7.2-.7 10.2.9"/><path d="M7.6 12.6c2.8-.8 5.8-.5 8.3.8"/><path d="M8.2 15.6c2.2-.6 4.4-.4 6.4.6"/></svg>
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <div class="heading">
+    <span class="eyebrow">Discografía · Spotify</span>
+    <h1>Música</h1>
+  </div>
+
+  <section class="music" aria-label="Discos">
+    <div class="discs">
+      <button class="disc disc-l" type="button" data-album="locoto" aria-pressed="false" aria-label="Ver Locoto Trip"></button>
+      <button class="disc disc-b" type="button" data-album="byc" aria-pressed="true" aria-label="Ver Brujo y Cazador, nuevo"><span class="badge">¡Nuevo!</span></button>
+      <span class="hint">Tocá un disco</span>
+    </div>
+
+    <div class="album" id="album-byc">
+      <div class="album-head">
+        <span class="eyebrow new" style="letter-spacing:.24em">Nuevo álbum · 20 de noviembre</span>
+        <h2>Brujo y Cazador</h2>
+      </div>
+      <div class="count">
+        <div style="display:flex;align-items:baseline;gap:14px"><span class="count-n" id="countN">—</span><span class="count-l" id="countL">días para el lanzamiento</span></div>
+        <p>El listado de temas aparece acá el día del lanzamiento. Mientras tanto, mirá el video de la canción que da nombre al disco.</p>
+      </div>
+      <div class="btns">
+        <a class="cta" href="https://open.spotify.com/intl-es/artist/6CBacBuu03rdsobTowKmoe" target="_blank" rel="noopener"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M7 9.4c3.4-1 7.2-.7 10.2.9"/><path d="M7.6 12.6c2.8-.8 5.8-.5 8.3.8"/><path d="M8.2 15.6c2.2-.6 4.4-.4 6.4.6"/></svg>Seguir en Spotify</a>
+        <a class="ghost" href="videos.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.6v14.8c0 .8.9 1.3 1.6.9l11.4-7.4c.6-.4.6-1.3 0-1.7L8.6 3.7C7.9 3.3 7 3.8 7 4.6z"/></svg>Ver el video</a>
+      </div>
+    </div>
+
+    <div class="album" id="album-locoto" hidden>
+    <div class="album-head">
+      <span class="eyebrow" style="letter-spacing:.24em">Álbum · 2018 · 11 canciones · 34:45</span>
+      <h2 id="album-title">Locoto Trip</h2>
+    </div>
+
+    <div class="player">
+      <iframe src="https://open.spotify.com/embed/album/3QnaKmFpx1QIwNTduAdYO9?utm_source=generator&amp;theme=0" title="Reproductor de Spotify: Locoto Trip" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+    </div>
+
+    <ol class="tracks glass">
+      <li><a class="row" href="https://open.spotify.com/intl-es/track/2kBrtc1rGp82AOw8siu7BY" target="_blank" rel="noopener"><span class="n">01</span><span class="t">Bienvenidos</span><span class="d">0:46</span><span class="pl" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.6v14.8c0 .8.9 1.3 1.6.9l11.4-7.4c.6-.4.6-1.3 0-1.7L8.6 3.7C7.9 3.3 7 3.8 7 4.6z"/></svg></span></a></li>
+      <li><a class="row" href="https://open.spotify.com/intl-es/track/6WLxiFNTNuTUCc6J9RSb4J" target="_blank" rel="noopener"><span class="n">02</span><span class="t">Chocolate</span><span class="d">3:36</span><span class="pl" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.6v14.8c0 .8.9 1.3 1.6.9l11.4-7.4c.6-.4.6-1.3 0-1.7L8.6 3.7C7.9 3.3 7 3.8 7 4.6z"/></svg></span></a></li>
+      <li><a class="row" href="https://open.spotify.com/intl-es/track/42NZHj1zA8ITQe2utwA6NE" target="_blank" rel="noopener"><span class="n">03</span><span class="t">Safari</span><span class="d">4:18</span><span class="pl" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.6v14.8c0 .8.9 1.3 1.6.9l11.4-7.4c.6-.4.6-1.3 0-1.7L8.6 3.7C7.9 3.3 7 3.8 7 4.6z"/></svg></span></a></li>
+      <li><a class="row" href="https://open.spotify.com/intl-es/track/2cEWSjkJGQkKSUvOTR52LW" target="_blank" rel="noopener"><span class="n">04</span><span class="t">Batucada</span><span class="d">3:48</span><span class="pl" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.6v14.8c0 .8.9 1.3 1.6.9l11.4-7.4c.6-.4.6-1.3 0-1.7L8.6 3.7C7.9 3.3 7 3.8 7 4.6z"/></svg></span></a></li>
+      <li><a class="row" href="https://open.spotify.com/intl-es/track/26yVYAcRq9KG8a2z0oETpX" target="_blank" rel="noopener"><span class="n">05</span><span class="t">Amanece (Versión Corta)</span><span class="d">1:01</span><span class="pl" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.6v14.8c0 .8.9 1.3 1.6.9l11.4-7.4c.6-.4.6-1.3 0-1.7L8.6 3.7C7.9 3.3 7 3.8 7 4.6z"/></svg></span></a></li>
+      <li><a class="row" href="https://open.spotify.com/intl-es/track/7vAm7c9NsRX9illSViJIFc" target="_blank" rel="noopener"><span class="n">06</span><span class="t">Garcho 'n Dance</span><span class="d">3:55</span><span class="pl" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.6v14.8c0 .8.9 1.3 1.6.9l11.4-7.4c.6-.4.6-1.3 0-1.7L8.6 3.7C7.9 3.3 7 3.8 7 4.6z"/></svg></span></a></li>
+      <li><a class="row" href="https://open.spotify.com/intl-es/track/1nE6RQXAW7kpdVFAp4S8MM" target="_blank" rel="noopener"><span class="n">07</span><span class="t">Medicinal (Live)</span><span class="d">0:46</span><span class="pl" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.6v14.8c0 .8.9 1.3 1.6.9l11.4-7.4c.6-.4.6-1.3 0-1.7L8.6 3.7C7.9 3.3 7 3.8 7 4.6z"/></svg></span></a></li>
+      <li><a class="row" href="https://open.spotify.com/intl-es/track/4WhFEVjG2g5PMQjJlDY2q9" target="_blank" rel="noopener"><span class="n">08</span><span class="t">Sabol</span><span class="d">4:46</span><span class="pl" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.6v14.8c0 .8.9 1.3 1.6.9l11.4-7.4c.6-.4.6-1.3 0-1.7L8.6 3.7C7.9 3.3 7 3.8 7 4.6z"/></svg></span></a></li>
+      <li><a class="row" href="https://open.spotify.com/intl-es/track/7FcXH9HSQyx32HaC7DhVqa" target="_blank" rel="noopener"><span class="n">09</span><span class="t">Cuando Hay Cumbia y Amor</span><span class="d">4:36</span><span class="pl" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.6v14.8c0 .8.9 1.3 1.6.9l11.4-7.4c.6-.4.6-1.3 0-1.7L8.6 3.7C7.9 3.3 7 3.8 7 4.6z"/></svg></span></a></li>
+      <li><a class="row" href="https://open.spotify.com/intl-es/track/3h03UYWE0XKCCbSJkVen2u" target="_blank" rel="noopener"><span class="n">10</span><span class="t">Al Mango</span><span class="d">4:15</span><span class="pl" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.6v14.8c0 .8.9 1.3 1.6.9l11.4-7.4c.6-.4.6-1.3 0-1.7L8.6 3.7C7.9 3.3 7 3.8 7 4.6z"/></svg></span></a></li>
+      <li><a class="row" href="https://open.spotify.com/intl-es/track/6DwqTHjJ9KtWCvXuJRi0s8" target="_blank" rel="noopener"><span class="n">11</span><span class="t">Amanece (Versión Completa)</span><span class="d">2:54</span><span class="pl" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.6v14.8c0 .8.9 1.3 1.6.9l11.4-7.4c.6-.4.6-1.3 0-1.7L8.6 3.7C7.9 3.3 7 3.8 7 4.6z"/></svg></span></a></li>
+    </ol>
+
+    <a class="cta" href="https://open.spotify.com/intl-es/album/3QnaKmFpx1QIwNTduAdYO9" target="_blank" rel="noopener">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M7 9.4c3.4-1 7.2-.7 10.2.9"/><path d="M7.6 12.6c2.8-.8 5.8-.5 8.3.8"/><path d="M8.2 15.6c2.2-.6 4.4-.4 6.4.6"/></svg>
+      Escuchar en Spotify
+    </a>
+    </div>
+  </section>
+</main>
+
+<script>
+(function(){
+  // Selector de discos
+  var discs = document.querySelectorAll('.disc');
+  function show(id){
+    document.body.classList.toggle('byc', id === 'byc');
+    discs.forEach(function(d){ d.setAttribute('aria-pressed', d.dataset.album === id); });
+    document.getElementById('album-byc').hidden = id !== 'byc';
+    document.getElementById('album-locoto').hidden = id !== 'locoto';
+  }
+  discs.forEach(function(d){ d.addEventListener('click', function(){ show(d.dataset.album); }); });
+  show('byc');
+  // Humo animado sobre el retrato de la tapa (se ubica según cómo se recorta el fondo)
+  var page = document.querySelector('.page'), smoke = document.getElementById('smoke');
+  function placeSmoke(){
+    var W = page.clientWidth, H = page.clientHeight, mob = window.matchMedia('(max-width: 860px)').matches;
+    var s, ox, oy, f;
+    if (mob){ s = W / 780; ox = 0; oy = 0; f = [154, 88, 603, 614]; }          // fondo mobile 780px de ancho, arriba
+    else { s = Math.max(W / 1920, H / 1080); ox = (W - 1920 * s) / 2; oy = (H - 1080 * s) / 2; f = [153, 122, 775, 850]; } // fondo desktop "cover"
+    smoke.style.left = (ox + f[0] * s) + 'px'; smoke.style.top = (oy + f[1] * s) + 'px';
+    smoke.style.width = ((f[2] - f[0]) * s) + 'px'; smoke.style.height = ((f[3] - f[1]) * s) + 'px';
+    smoke.style.borderRadius = (34 * s) + 'px';
+    var t = Math.round((f[2] - f[0]) * s * 0.8); smoke.style.setProperty('--t1', t + 'px'); smoke.style.setProperty('--t2', Math.round(t * 1.5) + 'px');
+  }
+  placeSmoke(); window.addEventListener('resize', placeSmoke);
+
+  // Cuenta regresiva al lanzamiento (20/11/2026)
+  var now = new Date(); now.setHours(0,0,0,0);
+  var days = Math.max(0, Math.round((new Date(2026, 10, 20) - now) / 86400000));
+  document.getElementById('countN').textContent = days === 0 ? 'Hoy' : days;
+  document.getElementById('countL').textContent = days === 0 ? 'sale el disco' : (days === 1 ? 'día para el lanzamiento' : 'días para el lanzamiento');
+
+  var header = document.getElementById('header'), mb = document.getElementById('menuBtn');
+  function toggleMenu(open){
+    header.classList.toggle('menu-open', open);
+    mb.setAttribute('aria-expanded', open);
+    mb.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+  }
+  mb.addEventListener('click', function(){ toggleMenu(!header.classList.contains('menu-open')); });
+  document.querySelectorAll('.nav a').forEach(function(l){ l.addEventListener('click', function(){ toggleMenu(false); }); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') toggleMenu(false); });
+})();
+</script>
+</body>
+</html>

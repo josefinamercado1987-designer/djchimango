@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>DJ Chimango</title>
+<meta name="description" content="DJ Chimango — música, videos y fechas. Patagonia, Argentina.">
+<meta property="og:title" content="DJ Chimango">
+<meta property="og:description" content="Música, videos y fechas. Patagonia, Argentina.">
+<meta property="og:image" content="assets/poster-desktop.jpg">
+<meta name="theme-color" content="#0b0b0b">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#0b0b0b;color:#f4f1ea;font-family:'DM Mono',ui-monospace,monospace}
+a{color:#f4f1ea}
+a:focus-visible,button:focus-visible{outline:2px solid #f4f1ea;outline-offset:4px}
+
+.home{position:relative;height:100vh;height:100svh;min-height:520px;overflow:hidden}
+.bg-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 40%}
+.shade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(8,8,8,.62) 0%,rgba(8,8,8,.12) 22%,rgba(8,8,8,0) 50%,rgba(8,8,8,.18) 70%,rgba(8,8,8,.72) 100%)}
+
+/* Header */
+.header{position:absolute;top:0;left:0;right:0;z-index:3;display:flex;align-items:center;justify-content:space-between;padding:40px 64px}
+.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:26px;letter-spacing:.04em;text-transform:uppercase;text-decoration:none}
+.nav{display:flex;align-items:center;gap:44px}
+.nav-link{position:relative;font-size:14px;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;opacity:.86;transition:opacity .2s}
+.nav-link:hover{opacity:1}
+.nav-link::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .25s ease}
+.nav-link:hover::after,.nav-link:focus-visible::after{transform:scaleX(1)}
+.icons{display:flex;gap:8px;margin-left:4px}
+.icon-link{display:flex;align-items:center;justify-content:center;width:44px;height:44px;opacity:.86;transition:opacity .2s,transform .2s}
+.icon-link:hover{opacity:1;transform:translateY(-1px)}
+.menu-btn{display:none;width:48px;height:48px;border:0;background:transparent;color:#f4f1ea;cursor:pointer;padding:0;align-items:center;justify-content:center}
+.menu-btn .i-close{display:none}
+.menu-open .menu-btn .i-open{display:none}
+.menu-open .menu-btn .i-close{display:block}
+
+/* Player */
+.player{position:absolute;left:64px;bottom:56px;z-index:1;display:flex;align-items:center;gap:22px}
+.play-btn{width:64px;height:64px;flex-shrink:0;border-radius:50%;border:0;background:#f4f1ea;color:#0b0b0b;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;transition:transform .2s ease,background .2s}
+.play-btn:hover{transform:scale(1.05);background:#fff}
+.play-btn .i-pause{display:none}
+.playing .play-btn .i-play{display:none}
+.playing .play-btn .i-pause{display:block}
+.track{display:flex;flex-direction:column;gap:10px;width:300px}
+.status{display:flex;align-items:center;gap:12px;font-size:12px;letter-spacing:.2em;text-transform:uppercase;opacity:.8}
+.eq{display:flex;align-items:flex-end;gap:3px;height:16px}
+.eq span{display:block;width:3px;height:16px;background:#f4f1ea;border-radius:2px;transform:scaleY(.25);transform-origin:bottom}
+.playing .eq span{animation:eq 1s ease-in-out infinite}
+.eq span:nth-child(2){animation-delay:-.35s}
+.eq span:nth-child(3){animation-delay:-.7s}
+.eq span:nth-child(4){animation-delay:-.15s}
+@keyframes eq{0%,100%{transform:scaleY(.25)}50%{transform:scaleY(1)}}
+.title{font-family:'Syne',sans-serif;font-weight:600;font-size:20px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.progress-row{display:flex;align-items:center;gap:12px}
+.progress{position:relative;flex:1;height:2px;background:rgba(244,241,234,.25);border-radius:2px;overflow:hidden}
+.progress-bar{position:absolute;left:0;top:0;bottom:0;width:0;background:#f4f1ea}
+.time{font-size:12px;opacity:.8;min-width:40px;text-align:right}
+.credit{position:absolute;right:64px;bottom:60px;z-index:1;font-size:11px;letter-spacing:.06em;color:rgba(244,241,234,.75)}
+.credit a{color:#f4f1ea;text-underline-offset:3px}
+
+/* Mobile */
+@media (max-width: 860px){
+  .header{padding:20px 20px 0 24px}
+  .logo{font-size:20px}
+  .menu-btn{display:flex}
+  .nav{position:fixed;inset:0;z-index:-1;flex-direction:column;align-items:flex-start;justify-content:center;gap:28px;padding:0 32px;background:rgba(8,8,8,.84);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);opacity:0;visibility:hidden;transition:opacity .28s ease,visibility .28s}
+  .menu-open .nav{opacity:1;visibility:visible}
+  .nav-link{font-family:'Syne',sans-serif;font-weight:800;font-size:40px;letter-spacing:.02em;opacity:1}
+  .nav-link::after{display:none}
+  .icons{margin:12px 0 0 -10px}
+  .player{left:24px;right:24px;bottom:36px;gap:16px}
+  .play-btn{width:56px;height:56px}
+  .track{width:auto;flex:1;min-width:0;gap:8px}
+  .title{font-size:17px}
+  .status,.time{font-size:11px}
+  .credit{left:0;right:0;bottom:16px;text-align:center;font-size:10px}
+  .player{bottom:52px}
+}
+@media (prefers-reduced-motion: reduce){
+  .playing .eq span{animation:none;transform:scaleY(.7)}
+}
+</style>
+</head>
+<body>
+<main class="home" id="inicio">
+  <video class="bg-video" id="bg" autoplay muted loop playsinline preload="auto" aria-hidden="true"
+         poster="assets/poster-desktop.jpg"
+         data-desktop="assets/home-desktop.mp4" data-mobile="assets/home-mobile.mp4"
+         data-poster-desktop="assets/poster-desktop.jpg" data-poster-mobile="assets/poster-mobile.jpg"></video>
+  <div class="shade" aria-hidden="true"></div>
+
+  <header class="header" id="header">
+    <a class="logo" href="#inicio">DJ Chimango</a>
+    <button class="menu-btn" id="menuBtn" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav">
+      <svg class="i-open" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M4 8h16"/><path d="M4 16h16"/></svg>
+      <svg class="i-close" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12"/><path d="M18 6L6 18"/></svg>
+    </button>
+    <nav class="nav" id="nav" aria-label="Principal">
+      <a class="nav-link" href="musica.html">Música</a>
+      <a class="nav-link" href="videos.html">Videos</a>
+      <a class="nav-link" href="fechas.html">Fechas</a>
+      <a class="nav-link" href="chimango.html">Chimango</a>
+      <div class="icons">
+        <!-- Reemplazar por los links reales -->
+        <a class="icon-link" href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram de DJ Chimango">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r=".9" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a class="icon-link" href="https://open.spotify.com/intl-es/artist/6CBacBuu03rdsobTowKmoe" target="_blank" rel="noopener" aria-label="Spotify de DJ Chimango">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M7 9.4c3.4-1 7.2-.7 10.2.9"/><path d="M7.6 12.6c2.8-.8 5.8-.5 8.3.8"/><path d="M8.2 15.6c2.2-.6 4.4-.4 6.4.6"/></svg>
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Reemplazar assets/tema.mp3 por el track real (mismo nombre) -->
+  <audio id="audio" src="assets/tema.mp3" loop preload="metadata"></audio>
+
+  <section class="player" id="player" aria-label="Reproductor">
+    <button class="play-btn" id="playBtn" type="button" aria-label="Reproducir tema">
+      <svg class="i-play" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="margin-left:3px"><path d="M7 4.6v14.8c0 .8.9 1.3 1.6.9l11.4-7.4c.6-.4.6-1.3 0-1.7L8.6 3.7C7.9 3.3 7 3.8 7 4.6z"/></svg>
+      <svg class="i-pause" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="4.5" width="4" height="15" rx="1"/><rect x="14" y="4.5" width="4" height="15" rx="1"/></svg>
+    </button>
+    <div class="track">
+      <div class="status"><div class="eq" aria-hidden="true"><span></span><span></span><span></span><span></span></div><span id="status">En pausa</span></div>
+      <div class="title">Tema demo — DJ Chimango</div>
+      <div class="progress-row">
+        <div class="progress" aria-hidden="true"><div class="progress-bar" id="bar"></div></div>
+        <span class="time" id="time">0:00</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="credit">Realizado por <a href="https://josefinamercado.com.ar" target="_blank" rel="noopener">josefinamercado.com.ar</a></div>
+</main>
+
+<script>
+(function(){
+  // Video: vertical en pantallas verticales, extendido 16:9 en horizontales
+  var v = document.getElementById('bg');
+  var mq = window.matchMedia('(orientation: portrait), (max-width: 860px)');
+  function setVideo(){
+    var m = mq.matches;
+    var src = m ? v.dataset.mobile : v.dataset.desktop;
+    if (v.getAttribute('src') === src) return;
+    v.poster = m ? v.dataset.posterMobile : v.dataset.posterDesktop;
+    v.style.objectPosition = m ? 'center' : 'center 40%';
+    v.src = src; v.muted = true;
+    var p = v.play(); if (p && p.catch) p.catch(function(){});
+  }
+  setVideo();
+  (mq.addEventListener ? mq.addEventListener('change', setVideo) : mq.addListener(setVideo));
+
+  // Reproductor
+  var a = document.getElementById('audio'), player = document.getElementById('player'),
+      btn = document.getElementById('playBtn'), status = document.getElementById('status'),
+      bar = document.getElementById('bar'), time = document.getElementById('time');
+  btn.addEventListener('click', function(){
+    if (a.paused) { var p = a.play(); if (p && p.catch) p.catch(function(){}); } else { a.pause(); }
+  });
+  a.addEventListener('play', function(){ player.classList.add('playing'); btn.setAttribute('aria-label','Pausar tema'); status.textContent = 'Sonando ahora'; });
+  a.addEventListener('pause', function(){ player.classList.remove('playing'); btn.setAttribute('aria-label','Reproducir tema'); status.textContent = 'En pausa'; });
+  a.addEventListener('timeupdate', function(){
+    var d = a.duration || 0, t = a.currentTime || 0;
+    bar.style.width = d ? (t / d * 100) + '%' : '0';
+    var s = Math.floor(t); time.textContent = Math.floor(s/60) + ':' + String(s % 60).padStart(2,'0');
+  });
+
+  // Menú mobile
+  var header = document.getElementById('header'), mb = document.getElementById('menuBtn');
+  function toggleMenu(open){
+    header.classList.toggle('menu-open', open);
+    mb.setAttribute('aria-expanded', open);
+    mb.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+  }
+  mb.addEventListener('click', function(){ toggleMenu(!header.classList.contains('menu-open')); });
+  document.querySelectorAll('.nav a').forEach(function(l){ l.addEventListener('click', function(){ toggleMenu(false); }); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') toggleMenu(false); });
+})();
+</script>
+</body>
+</html>

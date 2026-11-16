@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Videos — DJ Chimango</title>
+<meta name="description" content="Videos de DJ Chimango: Brujo y Cazador, Princesa salvaje.">
+<meta property="og:title" content="Videos — DJ Chimango">
+<meta property="og:image" content="assets/videos-bg-desktop.jpg">
+<meta name="theme-color" content="#07070c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;background:#07070c;color:#f4f1ea;font-family:'DM Mono',ui-monospace,monospace}
+a{color:#f4f1ea}
+a:focus-visible,button:focus-visible{outline:2px solid #e2c27a;outline-offset:4px}
+:root{--gold:#e2c27a}
+
+.page{position:relative;min-height:100vh;min-height:100svh;overflow:hidden;
+  background:#07070c url(assets/videos-bg-desktop.jpg) center/cover no-repeat}
+.shade{position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(90deg,rgba(7,7,12,0) 0%,rgba(7,7,12,0) 40%,rgba(7,7,12,.55) 62%,rgba(7,7,12,.78) 100%),
+             linear-gradient(180deg,rgba(7,7,12,.6) 0%,rgba(7,7,12,0) 20%)}
+.orbit{position:absolute;left:5vw;top:13vh;width:min(53vw,760px);aspect-ratio:1;opacity:.35;pointer-events:none;animation:spin 60s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* Header (igual a la home) */
+.header{position:absolute;top:0;left:0;right:0;z-index:3;display:flex;align-items:center;justify-content:space-between;padding:40px 64px}
+.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:26px;letter-spacing:.04em;text-transform:uppercase;text-decoration:none}
+.nav{display:flex;align-items:center;gap:44px}
+.nav-link{position:relative;font-size:14px;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;opacity:.86;transition:opacity .2s}
+.nav-link:hover{opacity:1}
+.nav-link::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .25s ease}
+.nav-link:hover::after,.nav-link.active::after{transform:scaleX(1)}
+.nav-link.active{opacity:1;color:var(--gold)}
+.icons{display:flex;gap:8px;margin-left:4px}
+.icon-link{display:flex;align-items:center;justify-content:center;width:44px;height:44px;opacity:.86;transition:opacity .2s,transform .2s}
+.icon-link:hover{opacity:1;transform:translateY(-1px)}
+.menu-btn{display:none;width:48px;height:48px;border:0;background:transparent;color:#f4f1ea;cursor:pointer;padding:0;align-items:center;justify-content:center}
+.menu-btn .i-close{display:none}
+.menu-open .menu-btn .i-open{display:none}
+.menu-open .menu-btn .i-close{display:block}
+
+/* Título */
+.heading{position:absolute;left:64px;bottom:56px;z-index:1;display:flex;flex-direction:column;gap:8px}
+.eyebrow{font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold)}
+.heading h1{margin:0;font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(72px,8.4vw,120px);line-height:.85;text-transform:uppercase}
+
+/* Videos */
+.list{position:relative;z-index:1;margin-left:auto;width:min(500px,40vw);padding:140px 64px 80px 0;display:flex;flex-direction:column;gap:36px;box-sizing:content-box}
+.item{width:100%}
+.frame{position:relative;aspect-ratio:16/9;border:1px solid rgba(226,194,122,.55);box-shadow:0 30px 60px rgba(0,0,0,.55);background:#000;overflow:hidden}
+.frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.meta{display:flex;align-items:baseline;gap:16px;margin-top:16px}
+.num{font-size:12px;letter-spacing:.2em;color:var(--gold)}
+.name{font-family:'Syne',sans-serif;font-weight:600;font-size:24px}
+.line{flex:1;height:1px;background:rgba(226,194,122,.4)}
+.yt{font-size:12px;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;opacity:.75}
+.yt:hover{opacity:1;color:var(--gold)}
+
+/* Mobile */
+@media (max-width: 860px){
+  .page{background:#07070c url(assets/videos-bg-mobile.jpg) top center/100% auto no-repeat}
+  .shade{background:linear-gradient(180deg,rgba(7,7,12,.55) 0%,rgba(7,7,12,0) 12%,rgba(7,7,12,0) 34%,rgba(7,7,12,.6) 50%,rgba(7,7,12,.75) 100%)}
+  .orbit{display:none}
+  .header{padding:20px 20px 0 24px}
+  .logo{font-size:20px}
+  .menu-btn{display:flex}
+  .nav{position:fixed;inset:0;z-index:-1;flex-direction:column;align-items:flex-start;justify-content:center;gap:28px;padding:0 32px;background:rgba(7,7,12,.86);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);opacity:0;visibility:hidden;transition:opacity .28s ease,visibility .28s}
+  .menu-open .nav{opacity:1;visibility:visible}
+  .nav-link{font-family:'Syne',sans-serif;font-weight:800;font-size:40px;letter-spacing:.02em;opacity:1}
+  .nav-link::after{display:none}
+  .icons{margin:12px 0 0 -10px}
+  .heading{position:relative;left:auto;bottom:auto;padding:min(143vw,560px) 24px 0}
+  .eyebrow{font-size:11px}
+  .heading h1{font-size:72px}
+  .list{width:auto;margin:0;padding:32px 24px 64px;box-sizing:border-box}
+  .item{width:100%}
+  .name{font-size:20px}
+  .yt{font-size:11px}
+}
+@media (prefers-reduced-motion: reduce){.orbit{animation:none}}
+</style>
+</head>
+<body>
+<main class="page">
+  <div class="shade" aria-hidden="true"></div>
+  <svg class="orbit" aria-hidden="true" viewBox="0 0 760 760" fill="none">
+    <circle cx="380" cy="380" r="370" stroke="#e2c27a" stroke-width="1" stroke-dasharray="2 10"/>
+    <circle cx="380" cy="380" r="300" stroke="#e2c27a" stroke-width=".6"/>
+    <circle cx="380" cy="10" r="4" fill="#e2c27a"/>
+  </svg>
+
+  <header class="header" id="header">
+    <a class="logo" href="index.html">DJ Chimango</a>
+    <button class="menu-btn" id="menuBtn" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav">
+      <svg class="i-open" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M4 8h16"/><path d="M4 16h16"/></svg>
+      <svg class="i-close" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12"/><path d="M18 6L6 18"/></svg>
+    </button>
+    <nav class="nav" id="nav" aria-label="Principal">
+      <a class="nav-link" href="musica.html">Música</a>
+      <a class="nav-link active" href="videos.html" aria-current="page">Videos</a>
+      <a class="nav-link" href="fechas.html">Fechas</a>
+      <a class="nav-link" href="chimango.html">Chimango</a>
+      <div class="icons">
+        <!-- Reemplazar por los links reales -->
+        <a class="icon-link" href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram de DJ Chimango">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r=".9" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a class="icon-link" href="https://open.spotify.com/intl-es/artist/6CBacBuu03rdsobTowKmoe" target="_blank" rel="noopener" aria-label="Spotify de DJ Chimango">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M7 9.4c3.4-1 7.2-.7 10.2.9"/><path d="M7.6 12.6c2.8-.8 5.8-.5 8.3.8"/><path d="M8.2 15.6c2.2-.6 4.4-.4 6.4.6"/></svg>
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <div class="heading">
+    <span class="eyebrow">Visiones · 02</span>
+    <h1>Videos</h1>
+  </div>
+
+  <section class="list" aria-label="Videos">
+    <article class="item">
+      <div class="frame">
+        <iframe src="https://www.youtube-nocookie.com/embed/xm8oeUCx818?rel=0" title="Brujo y Cazador — DJ Chimango" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      </div>
+      <div class="meta"><span class="num">01</span><h2 class="name" style="margin:0">Brujo y Cazador</h2><span class="line"></span><a class="yt" href="https://youtu.be/xm8oeUCx818" target="_blank" rel="noopener">YouTube ↗</a></div>
+    </article>
+    <article class="item">
+      <div class="frame">
+        <iframe src="https://www.youtube-nocookie.com/embed/PRN0Mz3l11c?rel=0" title="Princesa salvaje — DJ Chimango" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      </div>
+      <div class="meta"><span class="num">02</span><h2 class="name" style="margin:0">Princesa salvaje</h2><span class="line"></span><a class="yt" href="https://youtu.be/PRN0Mz3l11c" target="_blank" rel="noopener">YouTube ↗</a></div>
+    </article>
+  </section>
+</main>
+
+<script>
+(function(){
+  var header = document.getElementById('header'), mb = document.getElementById('menuBtn');
+  function toggleMenu(open){
+    header.classList.toggle('menu-open', open);
+    mb.setAttribute('aria-expanded', open);
+    mb.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+  }
+  mb.addEventListener('click', function(){ toggleMenu(!header.classList.contains('menu-open')); });
+  document.querySelectorAll('.nav a').forEach(function(l){ l.addEventListener('click', function(){ toggleMenu(false); }); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') toggleMenu(false); });
+})();
+</script>
+</body>
+</html>

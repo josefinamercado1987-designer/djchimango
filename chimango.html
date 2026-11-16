@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chimango — DJ Chimango</title>
+<meta name="description" content="DJ Chimango: DJ y productor argentino. Hace bailar desde hace más de 15 años.">
+<meta property="og:title" content="Chimango — DJ Chimango">
+<meta property="og:image" content="assets/chim-bg-desktop.jpg">
+<meta name="theme-color" content="#0a0a0a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+:root{--accent:#d9d9d9}
+html,body{margin:0;background:#0a0a0a;color:#f4f1ea;font-family:'DM Mono',ui-monospace,monospace}
+a{color:#f4f1ea}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+
+.page{position:relative;min-height:100vh;min-height:100svh;overflow:hidden;background:#0a0a0a url(assets/chim-bg-desktop.jpg) center/cover no-repeat}
+.forest{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;mix-blend-mode:screen;opacity:.38;filter:grayscale(1) contrast(1.05);pointer-events:none}
+.leftfade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(0,0,0,.72) 0%,rgba(0,0,0,.55) 30%,rgba(0,0,0,.15) 52%,rgba(0,0,0,0) 62%)}
+.topfade{position:absolute;left:0;right:0;top:0;height:180px;background:linear-gradient(180deg,rgba(10,10,10,.55),rgba(10,10,10,0));pointer-events:none}
+
+
+/* Header */
+.header{position:absolute;top:0;left:0;right:0;z-index:3;display:flex;align-items:center;justify-content:space-between;padding:40px 64px}
+.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:26px;letter-spacing:.04em;text-transform:uppercase;text-decoration:none}
+.nav{display:flex;align-items:center;gap:44px}
+.nav-link{position:relative;font-size:14px;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;opacity:.86;transition:opacity .2s}
+.nav-link:hover{opacity:1}
+.nav-link::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .25s ease}
+.nav-link:hover::after,.nav-link.active::after{transform:scaleX(1)}
+.nav-link.active{opacity:1;color:var(--accent)}
+.icons{display:flex;gap:8px;margin-left:4px}
+.icon-link{display:flex;align-items:center;justify-content:center;width:44px;height:44px;opacity:.86;transition:opacity .2s,transform .2s}
+.icon-link:hover{opacity:1;transform:translateY(-1px)}
+.menu-btn{display:none;width:48px;height:48px;border:0;background:transparent;color:#f4f1ea;cursor:pointer;padding:0;align-items:center;justify-content:center}
+.menu-btn .i-close{display:none}
+.menu-open .menu-btn .i-open{display:none}
+.menu-open .menu-btn .i-close{display:block}
+
+/* Bio */
+.bio{position:relative;z-index:1;width:min(560px,42vw);margin-left:64px;padding:190px 0 80px;display:flex;flex-direction:column;gap:22px}
+.eyebrow{font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--accent)}
+.bio h1{margin:0;font-family:'Syne',sans-serif;font-weight:600;font-size:32px;line-height:1.1}
+.rule{display:block;width:64px;height:2px;background:var(--accent)}
+.bio p{margin:0;font-size:17px;line-height:1.75;color:#fff}
+
+.player{display:flex;align-items:center;gap:20px;margin-top:18px}
+.play-btn{width:60px;height:60px;flex-shrink:0;border-radius:50%;border:0;background:#f4f1ea;color:#0a0a0a;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;transition:transform .2s ease,background .2s}
+.play-btn:hover{transform:scale(1.05);background:#fff}
+.play-btn .i-pause{display:none}
+.playing .play-btn .i-play{display:none}
+.playing .play-btn .i-pause{display:block}
+.track{display:flex;flex-direction:column;gap:8px;width:300px;min-width:0}
+.status{display:flex;align-items:center;gap:10px;font-size:12px;letter-spacing:.2em;text-transform:uppercase;opacity:.8}
+.eq{display:flex;align-items:flex-end;gap:3px;height:14px}
+.eq span{display:block;width:3px;height:14px;background:#f4f1ea;border-radius:2px;transform:scaleY(.25);transform-origin:bottom}
+.playing .eq span{animation:eq 1s ease-in-out infinite}
+.eq span:nth-child(2){animation-delay:-.35s}
+.eq span:nth-child(3){animation-delay:-.7s}
+.eq span:nth-child(4){animation-delay:-.15s}
+@keyframes eq{0%,100%{transform:scaleY(.25)}50%{transform:scaleY(1)}}
+.t-title{font-family:'Syne',sans-serif;font-weight:600;font-size:19px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.prog-row{display:flex;align-items:center;gap:10px}
+.prog{position:relative;flex:1;height:2px;background:rgba(244,241,234,.25);border-radius:2px;overflow:hidden}
+.prog-bar{position:absolute;left:0;top:0;bottom:0;width:0;background:#f4f1ea}
+.time{font-size:12px;opacity:.8;min-width:34px;text-align:right}
+@media (prefers-reduced-motion: reduce){.playing .eq span{animation:none;transform:scaleY(.7)}}
+@media (max-width: 860px){
+  .play-btn{width:56px;height:56px}
+  .track{width:auto;flex:1}
+  .t-title{font-size:17px}
+  .status,.time{font-size:11px}
+  .page{background:#0a0a0a url(assets/chim-bg-mobile.jpg) top center/100% auto no-repeat}
+  .forest{height:150vw;opacity:.4;-webkit-mask-image:linear-gradient(180deg,#000 70%,transparent 100%);mask-image:linear-gradient(180deg,#000 70%,transparent 100%)}
+  .leftfade{display:none}
+  .header{padding:20px 20px 0 24px}
+  .logo{font-size:20px}
+  .menu-btn{display:flex}
+  .nav{position:fixed;inset:0;z-index:-1;flex-direction:column;align-items:flex-start;justify-content:center;gap:28px;padding:0 32px;background:rgba(10,10,10,.92);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);opacity:0;visibility:hidden;transition:opacity .28s ease,visibility .28s}
+  .menu-open .nav{opacity:1;visibility:visible}
+  .nav-link{font-family:'Syne',sans-serif;font-weight:800;font-size:40px;letter-spacing:.02em;opacity:1}
+  .nav-link::after{display:none}
+  .icons{margin:12px 0 0 -10px}
+  .bio{width:auto;margin:0;padding:calc(150vw - 24px) 24px 64px;gap:18px}
+  .eyebrow{font-size:11px}
+  .bio h1{font-size:26px}
+  .rule{width:48px}
+  .bio p{font-size:15px;line-height:1.7}
+}
+</style>
+</head>
+<body>
+<main class="page" id="page">
+  <!-- El bosque de la home se transparenta sobre la foto -->
+  <video class="forest" id="forest" autoplay muted loop playsinline aria-hidden="true" data-desktop="assets/home-desktop.mp4" data-mobile="assets/home-mobile.mp4"></video>
+  <div class="leftfade" aria-hidden="true"></div>
+  <div class="topfade" aria-hidden="true"></div>
+
+  <header class="header" id="header">
+    <a class="logo" href="index.html">DJ Chimango</a>
+    <button class="menu-btn" id="menuBtn" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav">
+      <svg class="i-open" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M4 8h16"/><path d="M4 16h16"/></svg>
+      <svg class="i-close" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12"/><path d="M18 6L6 18"/></svg>
+    </button>
+    <nav class="nav" id="nav" aria-label="Principal">
+      <a class="nav-link" href="musica.html">Música</a>
+      <a class="nav-link" href="videos.html">Videos</a>
+      <a class="nav-link" href="fechas.html">Fechas</a>
+      <a class="nav-link active" href="chimango.html" aria-current="page">Chimango</a>
+      <div class="icons">
+        <!-- Reemplazar por el link real de Instagram -->
+        <a class="icon-link" href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram de DJ Chimango">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r=".9" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a class="icon-link" href="https://open.spotify.com/intl-es/artist/6CBacBuu03rdsobTowKmoe" target="_blank" rel="noopener" aria-label="Spotify de DJ Chimango">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M7 9.4c3.4-1 7.2-.7 10.2.9"/><path d="M7.6 12.6c2.8-.8 5.8-.5 8.3.8"/><path d="M8.2 15.6c2.2-.6 4.4-.4 6.4.6"/></svg>
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <section class="bio" aria-labelledby="bio-title">
+    <span class="eyebrow">DJ · Productor · Argentina</span>
+    <h1 id="bio-title">Sobre Chimango</h1>
+    <span class="rule" aria-hidden="true"></span>
+    <!-- BIO: reemplazar o completar estos párrafos -->
+    <p>DJ y productor argentino. Hace bailar desde hace más de 15 años: mezcla vinilos, produce música y organiza conciertos.</p>
+    <p>[Descripción y experiencia: trayectoria, escenarios y festivales donde tocó, estilo musical, colaboraciones y proyectos.]</p>
+    <p>[Segundo párrafo opcional: discos, residencias, lo que se vive en sus sets.]</p>
+    <!-- Tema de fondo: reemplazar assets/tema.mp3 por el track elegido (mismo nombre) -->
+    <audio id="audio" src="assets/tema.mp3" loop preload="auto"></audio>
+    <div class="player" id="player">
+      <button class="play-btn" id="playBtn" type="button" aria-label="Reproducir tema">
+        <svg class="i-play" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="margin-left:3px"><path d="M7 4.6v14.8c0 .8.9 1.3 1.6.9l11.4-7.4c.6-.4.6-1.3 0-1.7L8.6 3.7C7.9 3.3 7 3.8 7 4.6z"/></svg>
+        <svg class="i-pause" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="4.5" width="4" height="15" rx="1"/><rect x="14" y="4.5" width="4" height="15" rx="1"/></svg>
+      </button>
+      <div class="track">
+        <div class="status"><div class="eq" aria-hidden="true"><span></span><span></span><span></span><span></span></div><span id="status">En pausa</span></div>
+        <div class="t-title">Tema demo — DJ Chimango</div>
+        <div class="prog-row"><div class="prog" aria-hidden="true"><div class="prog-bar" id="bar"></div></div><span class="time" id="time">0:00</span></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+(function(){
+  var fv = document.getElementById('forest'), fmq = window.matchMedia('(max-width: 860px)');
+  function setForest(){ var src = fmq.matches ? fv.dataset.mobile : fv.dataset.desktop; if (fv.getAttribute('src') !== src){ fv.src = src; fv.muted = true; var p = fv.play(); if (p && p.catch) p.catch(function(){}); } }
+  setForest(); (fmq.addEventListener ? fmq.addEventListener('change', setForest) : fmq.addListener(setForest));
+  // Tema de fondo: intenta sonar al entrar; si el navegador lo bloquea, arranca con el primer toque o clic en la página
+  var a = document.getElementById('audio'), player = document.getElementById('player'), btn = document.getElementById('playBtn'),
+      st = document.getElementById('status'), bar = document.getElementById('bar'), time = document.getElementById('time'), userPaused = false;
+  function play(){ var p = a.play(); if (p && p.catch) p.catch(function(){}); }
+  btn.addEventListener('click', function(e){ e.stopPropagation(); if (a.paused){ userPaused = false; play(); } else { userPaused = true; a.pause(); } });
+  a.addEventListener('play', function(){ player.classList.add('playing'); btn.setAttribute('aria-label','Pausar tema'); st.textContent = 'Sonando ahora'; });
+  a.addEventListener('pause', function(){ player.classList.remove('playing'); btn.setAttribute('aria-label','Reproducir tema'); st.textContent = 'En pausa'; });
+  a.addEventListener('timeupdate', function(){ var d = a.duration || 0, t = a.currentTime || 0; bar.style.width = d ? (t/d*100) + '%' : '0'; var s = Math.floor(t); time.textContent = Math.floor(s/60) + ':' + String(s%60).padStart(2,'0'); });
+  play();
+  function firstTouch(e){ if (e && e.target && e.target.closest && e.target.closest('#playBtn')) return; if (a.paused && !userPaused) play(); document.removeEventListener('pointerdown', firstTouch); document.removeEventListener('keydown', firstTouch); }
+  document.addEventListener('pointerdown', firstTouch); document.addEventListener('keydown', firstTouch);
+
+  // Menú mobile
+  var header = document.getElementById('header'), mb = document.getElementById('menuBtn');
+  function toggleMenu(open){ header.classList.toggle('menu-open', open); mb.setAttribute('aria-expanded', open); mb.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú'); }
+  mb.addEventListener('click', function(){ toggleMenu(!header.classList.contains('menu-open')); });
+  document.querySelectorAll('.nav a').forEach(function(l){ l.addEventListener('click', function(){ toggleMenu(false); }); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') toggleMenu(false); });
+})();
+</script>
+</body>
+</html>
