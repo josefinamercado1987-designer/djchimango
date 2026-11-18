@@ -99,6 +99,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-off
   .lolla{gap:16px}
   .lolla-y strong{font-size:28px}
   .lolla img{width:200px}
+  .last b{font-size:16px}
   .rule{width:48px}
   .bio p{font-size:15px;line-height:1.7}
 }
@@ -113,10 +114,19 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-off
 @media (max-width: 860px){
   .header{padding:20px 20px 0 24px}
   .logo{font-size:14px}
-  .nav-link{font-size:40px;letter-spacing:.02em}
+  .nav-link{font-size:22px;letter-spacing:.04em}
+  .nav{gap:18px}
+  .icons{margin-top:8px}
   .icon-link{width:48px;height:48px}
   .icons svg{width:24px;height:24px}
 }
+
+/* Títulos que se ajustan al ancho */
+[data-fit] .fl{display:block;width:max-content;white-space:nowrap}
+
+/* Evita que el contenido se corra para el costado en celulares */
+html{overflow-x:hidden}
+.page{overflow:clip}
 </style>
 </head>
 <body>
@@ -153,7 +163,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-off
 
   <section class="bio" aria-labelledby="bio-title">
     <span class="eyebrow">DJ · Productor · Pianista · Tecladista · Compositor</span>
-    <h1 id="bio-title">Dj Chimango</h1>
+    <h1 id="bio-title" data-fit="shrink"><span class="fl">Dj Chimango</span></h1>
     <span class="rule" aria-hidden="true"></span>
     <p>Actualmente toca en el Hotel Faena Buenos Aires, Ferona y Festival, con house, nu disco, tropical house y organic house. Con vinilos, en Perro Negro, arma un set ecléctico: rock, soul, funk, disco, samba, bossa, salsa, boogaloo, cumbia chicha, hip hop y algunas otras perlas de la world music.</p>
     <p>Su live set es un trío que mixtura la electrónica y lo acústico con aires gitanos y tangueros: Germán Wernicke en guitarra española y percusión africana, Martín Almada en cello, y Dj Chimango en piano Rhodes, sintetizador y voces.</p>
@@ -201,6 +211,23 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-off
   mb.addEventListener('click', function(){ toggleMenu(!header.classList.contains('menu-open')); });
   document.querySelectorAll('.nav a').forEach(function(l){ l.addEventListener('click', function(){ toggleMenu(false); }); });
   document.addEventListener('keydown', function(e){ if (e.key === 'Escape') toggleMenu(false); });
+})();
+</script>
+<script>
+/* Ajusta los títulos grandes al ancho disponible para que nunca se corten.
+   data-fit="shrink": achica solo si no entra · data-fit="fill": cada línea ocupa todo el ancho */
+(function(){
+  function fit(){
+    document.querySelectorAll('[data-fit]').forEach(function(el){
+      var lines = Array.prototype.slice.call(el.querySelectorAll('.fl')), W = el.clientWidth, mode = el.getAttribute('data-fit');
+      lines.forEach(function(l){ l.style.fontSize = ''; });
+      var sizes = lines.map(function(l){ var base = parseFloat(getComputedStyle(l).fontSize); return base * W / l.offsetWidth; });
+      if (mode === 'shrink'){ var base = parseFloat(getComputedStyle(lines[0]).fontSize), s = Math.min.apply(null, sizes.concat([base])); lines.forEach(function(l){ l.style.fontSize = (s * 0.99) + 'px'; }); }
+      else lines.forEach(function(l, i){ l.style.fontSize = (sizes[i] * 0.995) + 'px'; });
+    });
+  }
+  fit(); window.addEventListener('resize', fit); window.addEventListener('load', fit);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
 })();
 </script>
 </body>

@@ -94,10 +94,16 @@ a:focus-visible,button:focus-visible{outline:2px solid #f4f1ea;outline-offset:4p
 @media (max-width: 860px){
   .header{padding:20px 20px 0 24px}
   .logo{font-size:14px}
-  .nav-link{font-size:40px;letter-spacing:.02em}
+  .nav-link{font-size:22px;letter-spacing:.04em}
+  .nav{gap:18px}
+  .icons{margin-top:8px}
   .icon-link{width:48px;height:48px}
   .icons svg{width:24px;height:24px}
 }
+
+/* Evita que el contenido se corra para el costado en celulares */
+html{overflow-x:hidden}
+.page{overflow:clip}
 </style>
 </head>
 <body>

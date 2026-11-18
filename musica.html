@@ -38,7 +38,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ink);outline-offset
 .pt::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid #ff4a3d;animation:ping 2.8s ease-out infinite;animation-delay:inherit}
 @keyframes ping{0%{transform:scale(1);opacity:.9}100%{transform:scale(4.2);opacity:0}}
 .plabel{position:absolute;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#f4f1ea;white-space:nowrap;text-shadow:0 1px 4px #000}
-.maplegend{position:absolute;left:64px;bottom:250px;display:flex;flex-direction:column;gap:6px;color:#f4f1ea;text-shadow:0 1px 6px #000}
+.maplegend{position:absolute;left:64px;bottom:170px;display:flex;flex-direction:column;gap:6px;color:#f4f1ea;text-shadow:0 1px 6px #000}
 .maplegend b{font-weight:500;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:#ff6b5e}
 .maplegend span{font-size:12px;letter-spacing:.12em;opacity:.8}
 .maplegend ol{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:5px}
@@ -117,7 +117,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ink);outline-offset
 /* Título */
 .heading{position:absolute;left:64px;bottom:56px;z-index:1;display:flex;flex-direction:column;gap:8px}
 .eyebrow{font-size:12px;font-weight:500;letter-spacing:.3em;text-transform:uppercase}
-.heading h1{margin:0;font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(72px,8.4vw,120px);line-height:.85;text-transform:uppercase}
+.heading h1{margin:0;font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(36px,3.4vw,50px);line-height:.95;text-transform:uppercase}
 
 /* Álbum */
 .music{position:relative;z-index:1;margin-left:auto;width:min(600px,44vw);padding:116px 64px 80px 0;box-sizing:content-box;display:flex;flex-direction:column;gap:18px}
@@ -176,10 +176,10 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ink);outline-offset
   .icon-link{color:#f4f1ea}
   .heading{position:relative;left:auto;bottom:auto;padding:max(112vw,420px) 24px 0;gap:6px}
   .eyebrow{font-size:11px}
-  .heading h1{font-size:clamp(44px,15vw,64px)}
+  .heading h1{font-size:clamp(30px,9.5vw,40px)}
   .music{width:auto;margin:0;padding:24px 24px 64px;box-sizing:border-box;gap:20px}
   .album-head .eyebrow{font-size:11px}
-  .album-head h2{font-size:40px}
+  .album-head h2{font-size:clamp(26px,8.6vw,40px)}
   .album-meta{font-size:11px;letter-spacing:.24em;text-transform:uppercase;padding:0}
   .row{grid-template-columns:30px minmax(0,1fr) 44px;min-height:52px;gap:10px}
   .pl{display:none}
@@ -198,10 +198,19 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ink);outline-offset
 @media (max-width: 860px){
   .header{padding:20px 20px 0 24px}
   .logo{font-size:14px}
-  .nav-link{font-size:40px;letter-spacing:.02em}
+  .nav-link{font-size:22px;letter-spacing:.04em}
+  .nav{gap:18px}
+  .icons{margin-top:8px}
   .icon-link{width:48px;height:48px}
   .icons svg{width:24px;height:24px}
 }
+
+/* Títulos que se ajustan al ancho */
+[data-fit] .fl{display:block;width:max-content;white-space:nowrap}
+
+/* Evita que el contenido se corra para el costado en celulares */
+html{overflow-x:hidden}
+.page{overflow:clip}
 </style>
 </head>
 <body>
@@ -248,7 +257,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ink);outline-offset
 
   <div class="heading">
     <span class="eyebrow">Música de DJ Chimango</span>
-    <h1>Sonando</h1>
+    <h1 data-fit="shrink"><span class="fl">Sonando</span></h1>
   </div>
 
   <!-- Portada de la sección: discos grandes -->
@@ -446,6 +455,23 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ink);outline-offset
   mb.addEventListener('click', function(){ toggleMenu(!header.classList.contains('menu-open')); });
   document.querySelectorAll('.nav a').forEach(function(l){ l.addEventListener('click', function(){ toggleMenu(false); }); });
   document.addEventListener('keydown', function(e){ if (e.key === 'Escape') toggleMenu(false); });
+})();
+</script>
+<script>
+/* Ajusta los títulos grandes al ancho disponible para que nunca se corten.
+   data-fit="shrink": achica solo si no entra · data-fit="fill": cada línea ocupa todo el ancho */
+(function(){
+  function fit(){
+    document.querySelectorAll('[data-fit]').forEach(function(el){
+      var lines = Array.prototype.slice.call(el.querySelectorAll('.fl')), W = el.clientWidth, mode = el.getAttribute('data-fit');
+      lines.forEach(function(l){ l.style.fontSize = ''; });
+      var sizes = lines.map(function(l){ var base = parseFloat(getComputedStyle(l).fontSize); return base * W / l.offsetWidth; });
+      if (mode === 'shrink'){ var base = parseFloat(getComputedStyle(lines[0]).fontSize), s = Math.min.apply(null, sizes.concat([base])); lines.forEach(function(l){ l.style.fontSize = (s * 0.99) + 'px'; }); }
+      else lines.forEach(function(l, i){ l.style.fontSize = (sizes[i] * 0.995) + 'px'; });
+    });
+  }
+  fit(); window.addEventListener('resize', fit); window.addEventListener('load', fit);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
 })();
 </script>
 </body>

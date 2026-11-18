@@ -19,8 +19,14 @@ a{color:var(--ink)}
 button{font:inherit}
 a:focus-visible,button:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
 
-.page{position:relative;min-height:100vh;min-height:100svh;background:#6f93bd url(assets/fechas-bg-desktop.jpg) center/cover no-repeat;padding:128px 64px 56px;display:grid;grid-template-columns:340px minmax(0,1fr);grid-template-rows:auto 1fr;column-gap:clamp(40px,8vw,112px);align-items:start}
+.page{position:relative;overflow:hidden;min-height:100vh;min-height:100svh;background:#6f93bd;padding:128px 64px 56px;display:grid;grid-template-columns:340px minmax(0,1fr);grid-template-rows:auto 1fr;column-gap:clamp(40px,8vw,112px);align-items:start}
 .glass{background:rgba(255,255,255,.42);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.75);box-shadow:0 30px 80px rgba(15,36,64,.18)}
+
+/* Nubes que se mueven lento */
+.page::before{content:"";position:absolute;top:-3%;bottom:-3%;left:-2%;right:-22%;background:url(assets/fechas-bg-desktop.jpg) center/cover no-repeat;animation:clouds 38s ease-in-out infinite alternate;pointer-events:none;will-change:transform}
+@keyframes clouds{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(-17%,-2%,0) scale(1.06)}}
+@media (prefers-reduced-motion: reduce){.page::before{animation-duration:90s}}
+.side,.cal{position:relative;z-index:1}
 
 /* Header */
 .header{position:absolute;top:0;left:0;right:0;z-index:3;display:flex;align-items:center;justify-content:space-between;padding:40px 64px}
@@ -113,7 +119,8 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ink);outline-offset
 
 /* Mobile */
 @media (max-width: 960px){
-  .page{display:flex;flex-direction:column;gap:22px;padding:110px 24px 48px;background:#e9d9d6 url(assets/fechas-bg-mobile.jpg) top center/100% auto no-repeat}
+  .page{display:flex;flex-direction:column;gap:22px;padding:110px 24px 48px;background:#e9d9d6}
+  .page::before{top:0;bottom:auto;left:-4%;right:-34%;height:190vw;background:url(assets/fechas-bg-mobile.jpg) top center/100% auto no-repeat}
   .header{padding:20px 20px 0 24px}
   .logo{font-size:20px}
   .menu-btn{display:flex}
@@ -129,7 +136,9 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ink);outline-offset
   .heading h1{font-size:clamp(40px,13vw,54px)}
   .cal{order:-1;padding:18px 14px 14px;min-height:0;gap:10px}
   .cal-head{flex-wrap:nowrap}
-  .cal-title{flex-direction:column;align-items:center;gap:4px;font-size:30px;order:2;flex:1;text-align:center;white-space:normal}
+  .cal-title{flex-direction:column;align-items:center;gap:4px;font-size:clamp(17px,5.2vw,26px);order:2;flex:1;min-width:0;text-align:center;white-space:normal}
+  .heading,.list,.form-card{position:relative;z-index:1;align-self:stretch;width:100%;min-width:0}
+  .cal{min-width:0;max-width:100%}
   .cal-year{font-size:12px;letter-spacing:.2em}
   .ctrls{display:contents}
   .today-btn{display:none}
@@ -156,6 +165,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ink);outline-offset
   .fld input,.fld select,.fld textarea{height:48px;font-size:16px}
   .fld textarea{height:80px}
   .res-cta{height:54px}
+  .res-date strong{font-size:18px}
 }
 
 /* Header compacto */
@@ -168,10 +178,19 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ink);outline-offset
 @media (max-width: 960px){
   .header{padding:20px 20px 0 24px}
   .logo{font-size:14px}
-  .nav-link{font-size:40px;letter-spacing:.02em}
+  .nav-link{font-size:22px;letter-spacing:.04em}
+  .nav{gap:18px}
+  .icons{margin-top:8px}
   .icon-link{width:48px;height:48px}
   .icons svg{width:24px;height:24px}
 }
+
+/* Títulos que se ajustan al ancho */
+[data-fit] .fl{display:block;width:max-content;white-space:nowrap}
+
+/* Evita que el contenido se corra para el costado en celulares */
+html{overflow-x:hidden}
+.page{overflow:clip}
 </style>
 </head>
 <body>
@@ -230,7 +249,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ink);outline-offset
 
     <div class="heading">
       <span class="label" style="color:inherit">Agenda · En vivo</span>
-      <h1>Fechas/<br>Reservas</h1>
+      <h1 data-fit="fill"><span class="fl">Fechas/</span><span class="fl">Reservas</span></h1>
     </div>
   </aside>
 
@@ -327,7 +346,7 @@ var SHEET_CSV_URL = '';
 
     var up = events.filter(function(e){ return e.date >= today; }).slice(0, 4);
     if (!up.length){
-      upList.innerHTML = '<p class="empty">Próximamente nuevas fechas.<br>Para contratarlo, reservá tu fecha con el botón de arriba.</p>';
+      upList.innerHTML = '<p class="empty">Próximamente nuevas fechas.<br>Para contratarme, reservá tu fecha con el botón de arriba.</p>';
     } else {
       if (!state.sel || !byDate[state.sel]) state.sel = up[0].key;
       upList.innerHTML = up.map(function(e){
@@ -390,6 +409,23 @@ var SHEET_CSV_URL = '';
   mb.addEventListener('click', function(){ toggleMenu(!header.classList.contains('menu-open')); });
   document.querySelectorAll('.nav a').forEach(function(l){ l.addEventListener('click', function(){ toggleMenu(false); }); });
   document.addEventListener('keydown', function(e){ if (e.key === 'Escape') toggleMenu(false); });
+})();
+</script>
+<script>
+/* Ajusta los títulos grandes al ancho disponible para que nunca se corten.
+   data-fit="shrink": achica solo si no entra · data-fit="fill": cada línea ocupa todo el ancho */
+(function(){
+  function fit(){
+    document.querySelectorAll('[data-fit]').forEach(function(el){
+      var lines = Array.prototype.slice.call(el.querySelectorAll('.fl')), W = el.clientWidth, mode = el.getAttribute('data-fit');
+      lines.forEach(function(l){ l.style.fontSize = ''; });
+      var sizes = lines.map(function(l){ var base = parseFloat(getComputedStyle(l).fontSize); return base * W / l.offsetWidth; });
+      if (mode === 'shrink'){ var base = parseFloat(getComputedStyle(lines[0]).fontSize), s = Math.min.apply(null, sizes.concat([base])); lines.forEach(function(l){ l.style.fontSize = (s * 0.99) + 'px'; }); }
+      else lines.forEach(function(l, i){ l.style.fontSize = (sizes[i] * 0.995) + 'px'; });
+    });
+  }
+  fit(); window.addEventListener('resize', fit); window.addEventListener('load', fit);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
 })();
 </script>
 </body>
