@@ -83,6 +83,21 @@ a:focus-visible,button:focus-visible{outline:2px solid #f4f1ea;outline-offset:4p
 @media (prefers-reduced-motion: reduce){
   .playing .eq span{animation:none;transform:scaleY(.7)}
 }
+
+/* Header compacto */
+.header{padding:30px 64px}
+.logo{font-size:19px}
+.nav{gap:32px}
+.nav-link{font-size:12px;letter-spacing:.16em}
+.icon-link{width:38px;height:38px}
+.icons svg{width:19px;height:19px}
+@media (max-width: 860px){
+  .header{padding:20px 20px 0 24px}
+  .logo{font-size:16px}
+  .nav-link{font-size:40px;letter-spacing:.02em}
+  .icon-link{width:48px;height:48px}
+  .icons svg{width:24px;height:24px}
+}
 </style>
 </head>
 <body>
@@ -102,15 +117,18 @@ a:focus-visible,button:focus-visible{outline:2px solid #f4f1ea;outline-offset:4p
     <nav class="nav" id="nav" aria-label="Principal">
       <a class="nav-link" href="musica.html">Música</a>
       <a class="nav-link" href="videos.html">Videos</a>
-      <a class="nav-link" href="fechas.html">Fechas</a>
+      <a class="nav-link" href="fechas.html">Fechas/<wbr>Reservas</a>
       <a class="nav-link" href="chimango.html">Chimango</a>
       <div class="icons">
         <!-- Reemplazar por los links reales -->
-        <a class="icon-link" href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram de DJ Chimango">
+        <a class="icon-link" href="https://www.instagram.com/djchimango/" target="_blank" rel="noopener" aria-label="Instagram de DJ Chimango">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r=".9" fill="currentColor" stroke="none"/></svg>
         </a>
         <a class="icon-link" href="https://open.spotify.com/intl-es/artist/6CBacBuu03rdsobTowKmoe" target="_blank" rel="noopener" aria-label="Spotify de DJ Chimango">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M7 9.4c3.4-1 7.2-.7 10.2.9"/><path d="M7.6 12.6c2.8-.8 5.8-.5 8.3.8"/><path d="M8.2 15.6c2.2-.6 4.4-.4 6.4.6"/></svg>
+        </a>
+        <a class="icon-link" href="https://wa.me/5491159884041?text=Hola%20DJ%20Chimango%2C%20quiero%20consultar%20por%20una%20contrataci%C3%B3n" target="_blank" rel="noopener" aria-label="WhatsApp de DJ Chimango">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.6 20.4l1.3-4.2a8.6 8.6 0 1 1 3.2 3.1z"/><path d="M9.2 8.4c.2-.4.5-.5.8-.5h.4c.2 0 .4.1.5.4l.7 1.6c.1.2 0 .4-.1.6l-.5.6c-.1.1-.1.3 0 .5.6 1 1.4 1.8 2.4 2.4.2.1.4.1.5 0l.6-.5c.2-.1.4-.2.6-.1l1.6.7c.3.1.4.3.4.5v.4c0 .3-.1.6-.5.8-.6.3-1.4.4-2.6 0-2.3-.8-4.2-2.7-5-5-.4-1.2-.3-2 0-2.6z" fill="currentColor" stroke="none"/></svg>
         </a>
       </div>
     </nav>

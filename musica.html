@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Música — DJ Chimango</title>
+<title>Sonando — Música de DJ Chimango</title>
 <meta name="description" content="Música de DJ Chimango. Álbum Locoto Trip (2018) en Spotify.">
 <meta property="og:title" content="Música — DJ Chimango">
 <meta property="og:image" content="assets/musica-bg-desktop.jpg">
@@ -14,9 +14,10 @@
 <style>
 *,*::before,*::after{box-sizing:border-box}
 :root{--ink:#062a33;--glass:rgba(255,255,255,.28);--glass-b:rgba(255,255,255,.6);--line:rgba(6,42,51,.18);--btn:#062a33}
-body.byc{--ink:#f4f1ea;--glass:rgba(10,10,10,.42);--glass-b:rgba(244,241,234,.28);--line:rgba(244,241,234,.18);--btn:#e8322b}
+body.byc,body.mapv{--ink:#f4f1ea;--glass:rgba(10,10,10,.42);--glass-b:rgba(244,241,234,.28);--line:rgba(244,241,234,.18);--btn:#e8322b}
 html,body{margin:0;background:#3cc6c4;color:var(--ink);font-family:'DM Mono',ui-monospace,monospace;transition:color .6s ease}
 body.byc{background:#1d1d1d}
+body.mapv{background:#0b0b0b}
 a{color:var(--ink)}
 a:focus-visible,button:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
 
@@ -24,10 +25,27 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ink);outline-offset
 .layer{position:absolute;inset:0;background-position:center;background-size:cover;background-repeat:no-repeat;pointer-events:none;transition:opacity .9s ease}
 .l-pool{background-image:url(assets/musica-bg-desktop.jpg)}
 .l-byc{background-image:url(assets/byc-bg-desktop.jpg);opacity:0}
+.l-mapbg{background-color:#0b0b0b;background-image:url(assets/byc-bg-desktop.jpg);opacity:0;filter:grayscale(1) blur(10px) brightness(.24);transform:scale(1.06)}
+.mapv .l-mapbg{opacity:1}
 .tint-byc{background:linear-gradient(90deg,rgba(0,0,0,0) 0%,rgba(0,0,0,0) 40%,rgba(0,0,0,.45) 62%,rgba(0,0,0,.65) 100%),linear-gradient(180deg,rgba(0,0,0,.45) 0%,rgba(0,0,0,0) 22%);opacity:0}
 .byc .l-byc,.byc .tint-byc{opacity:1}
 .fx{transition:opacity .6s ease}
-.byc .fx,.byc .tint{opacity:0}
+.byc .fx,.byc .tint,.mapv .fx,.mapv .tint{opacity:0}
+.mapwrap{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .9s ease}
+.mapv .mapwrap{opacity:1}
+.map{position:absolute;background:url(assets/world-dots.svg) 0 0/100% 100% no-repeat}
+.pt{position:absolute;border-radius:50%;background:#e8322b;box-shadow:0 0 14px rgba(232,50,43,.85);transform:translate(-50%,-50%)}
+.pt::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid #ff4a3d;animation:ping 2.8s ease-out infinite;animation-delay:inherit}
+@keyframes ping{0%{transform:scale(1);opacity:.9}100%{transform:scale(4.2);opacity:0}}
+.plabel{position:absolute;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#f4f1ea;white-space:nowrap;text-shadow:0 1px 4px #000}
+.maplegend{position:absolute;left:64px;bottom:250px;display:flex;flex-direction:column;gap:6px;color:#f4f1ea;text-shadow:0 1px 6px #000}
+.maplegend b{font-weight:500;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:#ff6b5e}
+.maplegend span{font-size:12px;letter-spacing:.12em;opacity:.8}
+.maplegend ol{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:5px}
+.maplegend li{font-size:12px;letter-spacing:.16em;text-transform:uppercase;display:flex;align-items:baseline;gap:10px}
+.maplegend li em{font-style:normal;color:#ff6b5e;width:12px}
+.maplegend li small{font-size:11px;opacity:.55;letter-spacing:.08em}
+@media (prefers-reduced-motion: reduce){.pt::after{animation:none}}
 .smoke{position:absolute;overflow:hidden;opacity:0;pointer-events:none;transition:opacity .9s ease;-webkit-mask-image:radial-gradient(ellipse 62% 72% at 50% 52%,#000 25%,transparent 78%);mask-image:radial-gradient(ellipse 62% 72% at 50% 52%,#000 25%,transparent 78%)}
 .byc .smoke{opacity:1}
 .sm{position:absolute;top:-4%;bottom:-4%;left:-8%;right:-8%;background-image:url(assets/smoke.png);background-repeat:repeat;mix-blend-mode:screen}
@@ -37,6 +55,20 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ink);outline-offset
 @keyframes rise2{to{background-position:0 calc(-1 * var(--t2,620px))}}
 @keyframes sway{from{transform:translateX(-2.5%)}to{transform:translateX(2.5%)}}
 @media (prefers-reduced-motion: reduce){.sm{animation:none}}
+/* Portada: los dos discos grandes, uno arriba del otro */
+.bigdiscs{position:absolute;right:64px;bottom:48px;z-index:1;display:none;flex-direction:column;align-items:flex-end;gap:24px;--cv:clamp(140px,calc((100vh - 330px) / 2),200px)}
+.mapv .bigdiscs{display:flex;animation:fadeIn .5s ease both}
+.bigdisc{display:flex;flex-direction:column;align-items:flex-end;gap:10px;padding:0;border:0;background:none;color:var(--ink);text-align:right;cursor:pointer;font-family:inherit;text-decoration:none}
+.bigdisc .cover{position:relative;display:block;width:var(--cv);height:var(--cv);border-radius:4px;background:#000 center/cover no-repeat;box-shadow:0 18px 40px rgba(0,0,0,.55);transition:transform .3s ease,box-shadow .3s ease}
+.bigdisc:hover .cover{transform:translateY(-6px) rotate(-1deg);box-shadow:0 26px 50px rgba(0,0,0,.65)}
+.bigdisc .cover.disc-l{background-image:url(https://i.scdn.co/image/ab67616d0000e1a35ca0c9251a9f864bfd4e370d)}
+.bigdisc .cover.disc-b{background-image:url(assets/byc-cover.jpg)}
+.bigdisc .badge{font-size:13px;padding:6px 11px}
+.bd-name{font-family:'Syne',sans-serif;font-weight:800;font-size:20px;text-transform:uppercase}
+.bd-go{font-size:11px;letter-spacing:.2em;text-transform:uppercase;opacity:.7;transition:opacity .2s,letter-spacing .2s}
+.bigdisc:hover .bd-go{opacity:1;letter-spacing:.26em}
+.mapv .music{display:none}
+.back{display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 14px;border-radius:999px;border:1px solid var(--ink);background:none;color:var(--ink);font-family:inherit;font-size:11px;letter-spacing:.2em;text-transform:uppercase;cursor:pointer}
 .discs{display:flex;align-items:center;gap:18px}
 .disc{position:relative;width:84px;height:84px;padding:0;border:0;border-radius:4px;cursor:pointer;background:#000 center/cover no-repeat;box-shadow:0 10px 24px rgba(0,0,0,.25);outline:2px solid transparent;outline-offset:4px;transition:transform .25s ease,outline-color .25s ease,filter .25s ease;filter:saturate(.6) brightness(.85)}
 .disc:hover{transform:translateY(-3px);filter:none}
@@ -112,6 +144,15 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ink);outline-offset
   .layer{background-size:100% auto;background-position:top center}
   .l-pool{background-image:url(assets/musica-bg-mobile.jpg)}
   .l-byc{background-image:url(assets/byc-bg-mobile.jpg)}
+  .maplegend{left:24px;top:82px;bottom:auto}
+  .mapv .heading{padding-top:470px}
+  .bigdiscs{position:relative;right:auto;bottom:auto;padding:28px 24px 64px;gap:22px;--cv:220px}
+  .bd-name{font-size:16px}
+  .bd-go{font-size:10px}
+  .maplegend b,.maplegend span{font-size:10px}
+  .maplegend ol{flex-direction:row;gap:12px;margin-top:6px}
+  .maplegend li{font-size:9px;gap:5px}
+  .plabel{font-size:9px}
   .tint,.wave,.tint-byc{display:none}
   .disc{width:76px;height:76px}
   .hint{font-size:10px}
@@ -135,7 +176,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ink);outline-offset
   .icon-link{color:#f4f1ea}
   .heading{position:relative;left:auto;bottom:auto;padding:max(112vw,420px) 24px 0;gap:6px}
   .eyebrow{font-size:11px}
-  .heading h1{font-size:72px}
+  .heading h1{font-size:clamp(44px,15vw,64px)}
   .music{width:auto;margin:0;padding:24px 24px 64px;box-sizing:border-box;gap:20px}
   .album-head .eyebrow{font-size:11px}
   .album-head h2{font-size:40px}
@@ -146,6 +187,21 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ink);outline-offset
   .cta{align-self:stretch;justify-content:center;height:52px}
 }
 @media (prefers-reduced-motion: reduce){.ripple,.wave{animation:none}.ripple{opacity:.5}}
+
+/* Header compacto */
+.header{padding:30px 64px}
+.logo{font-size:19px}
+.nav{gap:32px}
+.nav-link{font-size:12px;letter-spacing:.16em}
+.icon-link{width:38px;height:38px}
+.icons svg{width:19px;height:19px}
+@media (max-width: 860px){
+  .header{padding:20px 20px 0 24px}
+  .logo{font-size:16px}
+  .nav-link{font-size:40px;letter-spacing:.02em}
+  .icon-link{width:48px;height:48px}
+  .icons svg{width:24px;height:24px}
+}
 </style>
 </head>
 <body>
@@ -155,6 +211,13 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ink);outline-offset
   <div class="smoke" id="smoke" aria-hidden="true"><div class="sm s1"></div><div class="sm s2"></div></div>
   <div class="tint" aria-hidden="true"></div>
   <div class="layer tint-byc" aria-hidden="true"></div>
+  <div class="layer l-mapbg" aria-hidden="true"></div>
+  <!-- Mapa de oyentes: dónde suena la música de DJ Chimango -->
+  <div class="mapwrap" id="mapwrap" aria-hidden="true">
+    <div class="map" id="map"></div>
+    <div id="pts"></div>
+    <div class="maplegend"><b>● Dónde se escucha</b><span id="mapnote">Últimos 28 días · Spotify for Artists</span><ol id="maptop"></ol></div>
+  </div>
   <div class="ripples fx" aria-hidden="true"><div class="ripple"></div><div class="ripple"></div><div class="ripple"></div></div>
   <svg class="wave fx" aria-hidden="true" viewBox="0 0 1600 60" fill="none"><path d="M0 30 Q 40 6 80 30 T 160 30 T 240 30 T 320 30 T 400 30 T 480 30 T 560 30 T 640 30 T 720 30 T 800 30 T 880 30 T 960 30 T 1040 30 T 1120 30 T 1200 30 T 1280 30 T 1360 30 T 1440 30 T 1520 30 T 1600 30" stroke="#fff" stroke-width="1.5"/></svg>
 
@@ -167,30 +230,45 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ink);outline-offset
     <nav class="nav" id="nav" aria-label="Principal">
       <a class="nav-link active" href="musica.html" aria-current="page">Música</a>
       <a class="nav-link" href="videos.html">Videos</a>
-      <a class="nav-link" href="fechas.html">Fechas</a>
+      <a class="nav-link" href="fechas.html">Fechas/<wbr>Reservas</a>
       <a class="nav-link" href="chimango.html">Chimango</a>
       <div class="icons">
-        <!-- Reemplazar por el link real de Instagram -->
-        <a class="icon-link" href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram de DJ Chimango">
+        <a class="icon-link" href="https://www.instagram.com/djchimango/" target="_blank" rel="noopener" aria-label="Instagram de DJ Chimango">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r=".9" fill="currentColor" stroke="none"/></svg>
         </a>
         <a class="icon-link" href="https://open.spotify.com/intl-es/artist/6CBacBuu03rdsobTowKmoe" target="_blank" rel="noopener" aria-label="Spotify de DJ Chimango">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M7 9.4c3.4-1 7.2-.7 10.2.9"/><path d="M7.6 12.6c2.8-.8 5.8-.5 8.3.8"/><path d="M8.2 15.6c2.2-.6 4.4-.4 6.4.6"/></svg>
+        </a>
+        <a class="icon-link" href="https://wa.me/5491159884041?text=Hola%20DJ%20Chimango%2C%20quiero%20consultar%20por%20una%20contrataci%C3%B3n" target="_blank" rel="noopener" aria-label="WhatsApp de DJ Chimango">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.6 20.4l1.3-4.2a8.6 8.6 0 1 1 3.2 3.1z"/><path d="M9.2 8.4c.2-.4.5-.5.8-.5h.4c.2 0 .4.1.5.4l.7 1.6c.1.2 0 .4-.1.6l-.5.6c-.1.1-.1.3 0 .5.6 1 1.4 1.8 2.4 2.4.2.1.4.1.5 0l.6-.5c.2-.1.4-.2.6-.1l1.6.7c.3.1.4.3.4.5v.4c0 .3-.1.6-.5.8-.6.3-1.4.4-2.6 0-2.3-.8-4.2-2.7-5-5-.4-1.2-.3-2 0-2.6z" fill="currentColor" stroke="none"/></svg>
         </a>
       </div>
     </nav>
   </header>
 
   <div class="heading">
-    <span class="eyebrow">Discografía · Spotify</span>
-    <h1>Música</h1>
+    <span class="eyebrow">Música de DJ Chimango</span>
+    <h1>Sonando</h1>
   </div>
 
-  <section class="music" aria-label="Discos">
+  <!-- Portada de la sección: discos grandes -->
+  <section class="bigdiscs" aria-label="Discos">
+    <button class="bigdisc" type="button" data-go="byc" aria-label="Ir a Brujo y Cazador, nuevo">
+      <span class="cover disc-b"><span class="badge">¡Nuevo!</span></span>
+      <span class="bd-name">Brujo y Cazador</span><span class="bd-go">20 de noviembre →</span>
+    </button>
+    <button class="bigdisc" type="button" data-go="locoto" aria-label="Ir a Locoto Trip">
+      <span class="cover disc-l"></span>
+      <span class="bd-name">Locoto Trip</span><span class="bd-go">2018 · 11 temas →</span>
+    </button>
+  </section>
+
+  <section class="music" aria-label="Disco">
+    <button class="back" type="button" data-go="map" style="align-self:flex-start">← Volver al mapa</button>
     <div class="discs">
       <button class="disc disc-l" type="button" data-album="locoto" aria-pressed="false" aria-label="Ver Locoto Trip"></button>
       <button class="disc disc-b" type="button" data-album="byc" aria-pressed="true" aria-label="Ver Brujo y Cazador, nuevo"><span class="badge">¡Nuevo!</span></button>
-      <span class="hint">Tocá un disco</span>
+      <span class="hint">Cambiar de disco</span>
     </div>
 
     <div class="album" id="album-byc">
@@ -245,26 +323,113 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ink);outline-offset
   // Selector de discos
   var discs = document.querySelectorAll('.disc');
   function show(id){
+    if (['map', 'byc', 'locoto'].indexOf(id) < 0) id = 'map';
+    document.body.classList.toggle('mapv', id === 'map');
     document.body.classList.toggle('byc', id === 'byc');
     discs.forEach(function(d){ d.setAttribute('aria-pressed', d.dataset.album === id); });
     document.getElementById('album-byc').hidden = id !== 'byc';
     document.getElementById('album-locoto').hidden = id !== 'locoto';
   }
-  discs.forEach(function(d){ d.addEventListener('click', function(){ show(d.dataset.album); }); });
-  show('byc');
-  // Humo animado sobre el retrato de la tapa (se ubica según cómo se recorta el fondo)
+  discs.forEach(function(d){ d.addEventListener('click', function(){ go(d.dataset.album); }); });
+  document.querySelectorAll('[data-go]').forEach(function(b){ b.addEventListener('click', function(){ go(b.dataset.go); }); });
+  // cada disco tiene su dirección: musica.html#byc y musica.html#locoto
+  function go(id){ if (id === 'map') history.replaceState(null, '', location.pathname); else history.replaceState(null, '', '#' + id); show(id); window.scrollTo(0, 0); }
+  show(location.hash.slice(1));
+  window.addEventListener('hashchange', function(){ show(location.hash.slice(1)); });
+  /* ============================================================
+     MAPA DE OYENTES — datos de Spotify for Artists (Audiencia › Ubicación)
+     Planilla de Google publicada como CSV, o el archivo oyentes.csv de esta carpeta.
+     Columnas: ciudad | pais | oyentes | lat | lng   (lat y lng son opcionales)
+     ============================================================ */
+  var OYENTES_CSV_URL = '';
+  var COORDS = {
+    'neuquen':[-38.95,-68.06],'cipolletti':[-38.93,-67.99],'general roca':[-39.03,-67.58],'bariloche':[-41.13,-71.31],'san carlos de bariloche':[-41.13,-71.31],
+    'san martin de los andes':[-40.16,-71.35],'villa la angostura':[-40.76,-71.65],'viedma':[-40.81,-62.99],'bahia blanca':[-38.72,-62.27],'mar del plata':[-38.00,-57.56],
+    'buenos aires':[-34.60,-58.38],'caba':[-34.60,-58.38],'la plata':[-34.92,-57.95],'rosario':[-32.95,-60.64],'cordoba':[-31.42,-64.18],'mendoza':[-32.89,-68.84],
+    'salta':[-24.79,-65.41],'tucuman':[-26.81,-65.22],'san miguel de tucuman':[-26.81,-65.22],'jujuy':[-24.19,-65.30],'santa fe':[-31.63,-60.70],'parana':[-31.73,-60.53],
+    'corrientes':[-27.47,-58.83],'posadas':[-27.37,-55.90],'resistencia':[-27.45,-58.99],'san juan':[-31.54,-68.54],'san luis':[-33.30,-66.34],'santa rosa':[-36.62,-64.29],
+    'rawson':[-43.30,-65.10],'trelew':[-43.25,-65.31],'puerto madryn':[-42.77,-65.04],'comodoro rivadavia':[-45.86,-67.48],'rio gallegos':[-51.62,-69.22],'ushuaia':[-54.80,-68.30],
+    'el bolson':[-41.96,-71.53],'esquel':[-42.91,-71.32],'santiago':[-33.45,-70.67],'valparaiso':[-33.05,-71.62],'concepcion':[-36.83,-73.05],'temuco':[-38.74,-72.60],
+    'puerto montt':[-41.47,-72.94],'montevideo':[-34.90,-56.16],'asuncion':[-25.26,-57.58],'la paz':[-16.50,-68.15],'lima':[-12.05,-77.04],'cusco':[-13.53,-71.97],
+    'bogota':[4.71,-74.07],'medellin':[6.24,-75.58],'quito':[-0.18,-78.47],'caracas':[10.48,-66.90],'sao paulo':[-23.55,-46.63],'rio de janeiro':[-22.91,-43.17],
+    'florianopolis':[-27.59,-48.55],'porto alegre':[-30.03,-51.23],'ciudad de mexico':[19.43,-99.13],'cdmx':[19.43,-99.13],'mexico city':[19.43,-99.13],'guadalajara':[20.66,-103.35],
+    'monterrey':[25.69,-100.32],'tulum':[20.21,-87.46],'la habana':[23.11,-82.37],'san jose':[9.93,-84.08],'panama':[8.98,-79.52],'miami':[25.76,-80.19],'new york':[40.71,-74.01],
+    'nueva york':[40.71,-74.01],'los angeles':[34.05,-118.24],'san francisco':[37.77,-122.42],'toronto':[43.65,-79.38],'montreal':[45.50,-73.57],'madrid':[40.42,-3.70],
+    'barcelona':[41.39,2.17],'valencia':[39.47,-0.38],'sevilla':[37.39,-5.98],'ibiza':[38.91,1.43],'palma':[39.57,2.65],'lisboa':[38.72,-9.14],'porto':[41.15,-8.61],
+    'paris':[48.86,2.35],'londres':[51.51,-0.13],'london':[51.51,-0.13],'berlin':[52.52,13.40],'munich':[48.14,11.58],'amsterdam':[52.37,4.90],'roma':[41.90,12.50],
+    'milan':[45.46,9.19],'zurich':[47.38,8.54],'viena':[48.21,16.37],'praga':[50.08,14.44],'estocolmo':[59.33,18.07],'copenhague':[55.68,12.57],'tel aviv':[32.09,34.78],
+    'tokio':[35.68,139.69],'tokyo':[35.68,139.69],'sidney':[-33.87,151.21],'sydney':[-33.87,151.21],'melbourne':[-37.81,144.96]
+  };
+  function norm(t){ return (t||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').trim(); }
+  function csvRows(text){
+    var rows = [], row = [], f = '', q = false;
+    for (var i = 0; i < text.length; i++){ var c = text[i];
+      if (q){ if (c === '"'){ if (text[i+1] === '"'){ f += '"'; i++; } else q = false; } else f += c; }
+      else if (c === '"') q = true; else if (c === ','){ row.push(f); f = ''; }
+      else if (c === '\n' || c === '\r'){ if (c === '\r' && text[i+1] === '\n') i++; row.push(f); rows.push(row); row = []; f = ''; }
+      else f += c; }
+    if (f !== '' || row.length){ row.push(f); rows.push(row); }
+    return rows.filter(function(r){ return r.some(function(x){ return x.trim(); }); });
+  }
+  function geocode(city, country){
+    // ciudades que no están en la lista: se buscan una vez en OpenStreetMap y se guardan en el navegador
+    var key = 'geo:' + norm(city) + ',' + norm(country);
+    try { var hit = localStorage.getItem(key); if (hit) return Promise.resolve(JSON.parse(hit)); } catch(e){}
+    var u = 'https://nominatim.openstreetmap.org/search?format=json&limit=1&q=' + encodeURIComponent(city + ', ' + country);
+    return fetch(u).then(function(r){ return r.json(); }).then(function(j){
+      if (!j[0]) return null; var ll = [parseFloat(j[0].lat), parseFloat(j[0].lon)];
+      try { localStorage.setItem(key, JSON.stringify(ll)); } catch(e){} return ll;
+    }).catch(function(){ return null; });
+  }
+  var mapEl = document.getElementById('map'), ptsEl = document.getElementById('pts'), cities = [];
+  function layoutMap(){
+    var W = page.clientWidth, H = page.clientHeight, mob = window.matchMedia('(max-width: 860px)').matches, K, X0, Y0;
+    if (mob){ K = W / 165; X0 = -80 * K; Y0 = 130; }
+    else { K = Math.max(2.2, Math.min(3.3, W * 0.82 / 360, (H - 300) / 132)); X0 = (W - 360 * K) / 2 - 16; Y0 = Math.max(120, (H - 132 * K) / 2 - 80); }
+    mapEl.style.left = X0 + 'px'; mapEl.style.top = Y0 + 'px'; mapEl.style.width = (360 * K) + 'px'; mapEl.style.height = (132 * K) + 'px';
+    var max = cities.reduce(function(m, c){ return Math.max(m, c.n); }, 1), html = '', placed = [];
+    cities.forEach(function(c, i){
+      var x = X0 + (c.lng + 180) * K, y = Y0 + (76 - c.lat) * K, sz = Math.round((mob ? 6 : 8) + Math.sqrt(c.n / max) * (mob ? 12 : 18));
+      html += '<span class="pt" style="left:' + x + 'px;top:' + y + 'px;width:' + sz + 'px;height:' + sz + 'px;animation-delay:' + (-(i * 0.37) % 2.8) + 's"></span>';
+    });
+    ptsEl.innerHTML = html;
+    // ranking de ciudades debajo del título del mapa
+    document.getElementById('maptop').innerHTML = cities.slice(0, mob ? 3 : 5).map(function(c, i){
+      return '<li><em>' + (i + 1) + '</em>' + c.city.replace(/[<>&]/g, '') + (mob ? '' : '<small>' + c.n + '</small>') + '</li>';
+    }).join('');
+  }
   var page = document.querySelector('.page'), smoke = document.getElementById('smoke');
+  // Humo animado sobre el retrato de la tapa de Brujo y Cazador
   function placeSmoke(){
     var W = page.clientWidth, H = page.clientHeight, mob = window.matchMedia('(max-width: 860px)').matches;
     var s, ox, oy, f;
-    if (mob){ s = W / 780; ox = 0; oy = 0; f = [154, 88, 603, 614]; }          // fondo mobile 780px de ancho, arriba
-    else { s = Math.max(W / 1920, H / 1080); ox = (W - 1920 * s) / 2; oy = (H - 1080 * s) / 2; f = [153, 122, 775, 850]; } // fondo desktop "cover"
+    if (mob){ s = W / 780; ox = 0; oy = 0; f = [154, 88, 603, 614]; }
+    else { s = Math.max(W / 1920, H / 1080); ox = (W - 1920 * s) / 2; oy = (H - 1080 * s) / 2; f = [153, 122, 775, 850]; }
     smoke.style.left = (ox + f[0] * s) + 'px'; smoke.style.top = (oy + f[1] * s) + 'px';
     smoke.style.width = ((f[2] - f[0]) * s) + 'px'; smoke.style.height = ((f[3] - f[1]) * s) + 'px';
     smoke.style.borderRadius = (34 * s) + 'px';
     var t = Math.round((f[2] - f[0]) * s * 0.8); smoke.style.setProperty('--t1', t + 'px'); smoke.style.setProperty('--t2', Math.round(t * 1.5) + 'px');
   }
   placeSmoke(); window.addEventListener('resize', placeSmoke);
+  fetch(OYENTES_CSV_URL || 'oyentes.csv', { cache: 'no-store' }).then(function(r){ if (!r.ok) throw 0; return r.text(); }).then(function(t){
+    var rows = csvRows(t), head = rows.shift().map(norm), ix = function(n){ return head.indexOf(n); };
+    var jobs = rows.map(function(r){
+      var city = (r[ix('ciudad')] || '').trim(), country = (r[ix('pais')] || '').trim(), n = parseFloat(r[ix('oyentes')]) || 1;
+      var lat = parseFloat(r[ix('lat')]), lng = parseFloat(r[ix('lng')]);
+      if (!city) return Promise.resolve(null);
+      if (!isNaN(lat) && !isNaN(lng)) return Promise.resolve({ city: city, n: n, lat: lat, lng: lng });
+      var known = COORDS[norm(city)];
+      if (known) return Promise.resolve({ city: city, n: n, lat: known[0], lng: known[1] });
+      return geocode(city, country).then(function(ll){ return ll ? { city: city, n: n, lat: ll[0], lng: ll[1] } : null; });
+    });
+    return Promise.all(jobs);
+  }).then(function(list){
+    cities = list.filter(Boolean).sort(function(a, b){ return b.n - a.n; });
+    if (!cities.length) document.getElementById('mapnote').textContent = 'Muy pronto: los lugares donde suena DJ Chimango';
+    layoutMap();
+  }).catch(function(){ document.getElementById('mapnote').textContent = 'Muy pronto: los lugares donde suena DJ Chimango'; layoutMap(); });
+  window.addEventListener('resize', layoutMap);
+
 
   // Cuenta regresiva al lanzamiento (20/11/2026)
   var now = new Date(); now.setHours(0,0,0,0);
