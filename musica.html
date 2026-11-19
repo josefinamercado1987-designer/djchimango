@@ -31,21 +31,55 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ink);outline-offset
 .byc .l-byc,.byc .tint-byc{opacity:1}
 .fx{transition:opacity .6s ease}
 .byc .fx,.byc .tint,.mapv .fx,.mapv .tint{opacity:0}
-.mapwrap{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .9s ease}
-.mapv .mapwrap{opacity:1}
-.map{position:absolute;background:url(assets/world-dots.svg) 0 0/100% 100% no-repeat}
-.pt{position:absolute;border-radius:50%;background:#e8322b;box-shadow:0 0 14px rgba(232,50,43,.85);transform:translate(-50%,-50%)}
-.pt::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid #ff4a3d;animation:ping 2.8s ease-out infinite;animation-delay:inherit}
-@keyframes ping{0%{transform:scale(1);opacity:.9}100%{transform:scale(4.2);opacity:0}}
-.plabel{position:absolute;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#f4f1ea;white-space:nowrap;text-shadow:0 1px 4px #000}
-.maplegend{position:absolute;left:64px;bottom:170px;display:flex;flex-direction:column;gap:6px;color:#f4f1ea;text-shadow:0 1px 6px #000}
-.maplegend b{font-weight:500;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:#ff6b5e}
-.maplegend span{font-size:12px;letter-spacing:.12em;opacity:.8}
-.maplegend ol{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:5px}
-.maplegend li{font-size:12px;letter-spacing:.16em;text-transform:uppercase;display:flex;align-items:baseline;gap:10px}
-.maplegend li em{font-style:normal;color:#ff6b5e;width:12px}
-.maplegend li small{font-size:11px;opacity:.55;letter-spacing:.08em}
-@media (prefers-reduced-motion: reduce){.pt::after{animation:none}}
+/* Tocadiscos */
+.ttwrap{position:absolute;inset:0;display:none;pointer-events:none}
+.mapv .ttwrap{display:block;animation:fadeIn .6s ease both}
+.ttwrap{z-index:2}
+.ttwrap::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 55% 60% at 40% 48%,rgba(244,241,234,.12),rgba(244,241,234,0) 70%)}
+.ttbox{--w:min(760px,calc(100vw - 460px),calc((100vh - 330px) * 1.407));position:absolute;top:110px;left:max(64px,calc((100vw - 330px - var(--w)) / 2));width:var(--w);aspect-ratio:760/540;pointer-events:auto}
+.ttbox svg{position:absolute;inset:0;width:100%;height:100%}
+.tt-arm{pointer-events:none}
+.rec{position:absolute;left:9.474%;top:10.741%;width:50%;aspect-ratio:1;border-radius:50%;opacity:0;transform:translate(120%,25%) scale(.5) rotate(-60deg);transition:transform 1s cubic-bezier(.2,.8,.2,1),opacity .5s ease;pointer-events:none}
+.rec.in{opacity:1;transform:none}
+.vinyl{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle,transparent 0 31%,#0c0c0c 31.5% 33%,transparent 33.5%),repeating-radial-gradient(circle,#121212 0 1.5px,#1c1c1c 1.5px 3px);box-shadow:0 12px 30px rgba(0,0,0,.6),inset 0 0 0 2px #050505}
+.rec.in .vinyl{animation:spin 1.8s linear 1.1s infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.vlabel{position:absolute;left:32%;top:32%;width:36%;height:36%;border-radius:50%;background:center/cover no-repeat;box-shadow:0 0 0 2px #0a0a0a}
+.vlabel::after{content:"";position:absolute;left:46%;top:46%;width:8%;height:8%;border-radius:50%;background:#d8d3c8}
+.sheen{position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 210deg,transparent 0 8%,rgba(255,255,255,.1) 12%,transparent 18% 58%,rgba(255,255,255,.07) 62%,transparent 68%)}
+.arm{transform-origin:628px 104px;transform-box:view-box;transition:transform 1.1s cubic-bezier(.4,0,.2,1) .7s}
+.playing .arm{transform:rotate(43deg)}
+.waves{position:absolute;left:34.47%;top:45.93%;width:0;height:0;opacity:0;transition:opacity 1s ease}
+.playing .waves{opacity:1}
+.waves i{position:absolute;left:calc(var(--w) * -.33);top:calc(var(--w) * -.33);width:calc(var(--w) * .66);height:calc(var(--w) * .66);border-radius:50%;border:1.5px solid rgba(60,198,196,.55);animation:wave 4.2s ease-out infinite}
+.waves i:nth-child(2){animation-delay:-1.4s}
+.waves i:nth-child(3){animation-delay:-2.8s}
+@keyframes wave{0%{transform:scale(.85);opacity:0}20%{opacity:.8}100%{transform:scale(1.55);opacity:0}}
+.ttstart{position:absolute;left:85.5%;top:74.8%;width:7.7%;height:6.4%;padding:0;border:0;border-radius:999px;background:transparent;cursor:pointer}
+.ttstart:hover,.ttstart:focus-visible{box-shadow:0 0 0 3px rgba(232,50,43,.45);outline:0}
+.nowp{position:absolute;left:max(64px,calc((100vw - 330px - var(--w)) / 2));top:calc(110px + var(--w) * .7105 + 14px);width:var(--w);--w:min(760px,calc(100vw - 460px),calc((100vh - 330px) * 1.407));display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:56px;padding:6px 8px 6px 24px;border-radius:999px;background:rgba(10,10,10,.55);border:1px solid rgba(244,241,234,.18);color:#f4f1ea;pointer-events:auto}
+.np-idle{font-size:12px;letter-spacing:.2em;text-transform:uppercase;opacity:.85;margin:0 auto}
+.np-idle .arr::after{content:"→"}
+.np-on,.np-btns{display:none;align-items:center;gap:12px;min-width:0}
+.playing .np-idle{display:none}
+.playing .np-on,.playing .np-btns{display:flex}
+.nowp{box-sizing:border-box}
+.np-on{flex:1 1 auto}
+.np-on small{font-size:11px;letter-spacing:.2em;text-transform:uppercase;opacity:.8;white-space:nowrap}
+.np-on strong{min-width:0;font-family:'Syne',sans-serif;font-weight:800;font-size:16px;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.eqd{display:inline-flex;align-items:flex-end;gap:3px;height:14px}
+.eqd i{display:block;width:3px;height:14px;background:#3cc6c4;border-radius:2px;transform-origin:bottom;animation:eq 1s ease-in-out infinite}
+.eqd i:nth-child(2){animation-delay:-.35s}
+.eqd i:nth-child(3){animation-delay:-.7s}
+@keyframes eq{0%,100%{transform:scaleY(.25)}50%{transform:scaleY(1)}}
+.stopbtn{display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 18px;border:1px solid rgba(244,241,234,.5);border-radius:999px;background:none;color:#f4f1ea;font-size:12px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;flex-shrink:0}
+.stopbtn:hover{border-color:#f4f1ea}
+.openbtn{display:inline-flex;align-items:center;height:42px;padding:0 20px;border:0;border-radius:999px;background:#3cc6c4;color:#0f2440;font-size:12px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;white-space:nowrap;flex-shrink:0}
+.bigdisc.dim{opacity:.55}
+.bigdisc.dim:hover{opacity:1}
+.onplate{position:absolute;left:10px;bottom:10px;padding:5px 9px;border-radius:999px;background:#3cc6c4;color:#0f2440;font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;display:none}
+.bigdisc.sel .onplate{display:block}
+@media (prefers-reduced-motion: reduce){.rec.in .vinyl,.waves i,.eqd i{animation:none}}
 .smoke{position:absolute;overflow:hidden;opacity:0;pointer-events:none;transition:opacity .9s ease;-webkit-mask-image:radial-gradient(ellipse 62% 72% at 50% 52%,#000 25%,transparent 78%);mask-image:radial-gradient(ellipse 62% 72% at 50% 52%,#000 25%,transparent 78%)}
 .byc .smoke{opacity:1}
 .sm{position:absolute;top:-4%;bottom:-4%;left:-8%;right:-8%;background-image:url(assets/smoke.png);background-repeat:repeat;mix-blend-mode:screen}
@@ -61,7 +95,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ink);outline-offset
 .bigdisc{display:flex;flex-direction:column;align-items:flex-end;gap:10px;padding:0;border:0;background:none;color:var(--ink);text-align:right;cursor:pointer;font-family:inherit;text-decoration:none}
 .bigdisc .cover{position:relative;display:block;width:var(--cv);height:var(--cv);border-radius:4px;background:#000 center/cover no-repeat;box-shadow:0 18px 40px rgba(0,0,0,.55);transition:transform .3s ease,box-shadow .3s ease}
 .bigdisc:hover .cover{transform:translateY(-6px) rotate(-1deg);box-shadow:0 26px 50px rgba(0,0,0,.65)}
-.bigdisc .cover.disc-l{background-image:url(https://i.scdn.co/image/ab67616d0000e1a35ca0c9251a9f864bfd4e370d)}
+.bigdisc .cover.disc-l{background-image:url(assets/locoto-cover.jpg)}
 .bigdisc .cover.disc-b{background-image:url(assets/byc-cover.jpg)}
 .bigdisc .badge{font-size:13px;padding:6px 11px}
 .bd-name{font-family:'Syne',sans-serif;font-weight:800;font-size:20px;text-transform:uppercase}
@@ -73,7 +107,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ink);outline-offset
 .disc{position:relative;width:84px;height:84px;padding:0;border:0;border-radius:4px;cursor:pointer;background:#000 center/cover no-repeat;box-shadow:0 10px 24px rgba(0,0,0,.25);outline:2px solid transparent;outline-offset:4px;transition:transform .25s ease,outline-color .25s ease,filter .25s ease;filter:saturate(.6) brightness(.85)}
 .disc:hover{transform:translateY(-3px);filter:none}
 .disc[aria-pressed="true"]{outline-color:var(--ink);filter:none}
-.disc-l{background-image:url(https://i.scdn.co/image/ab67616d0000e1a35ca0c9251a9f864bfd4e370d)}
+.disc-l{background-image:url(assets/locoto-cover.jpg)}
 .disc-b{background-image:url(assets/byc-cover.jpg)}
 .badge{position:absolute;top:-12px;right:-16px;z-index:2;padding:5px 9px;border-radius:999px;background:#e8322b;color:#fff;font-family:'Syne',sans-serif;font-weight:800;font-size:11px;line-height:1;letter-spacing:.08em;text-transform:uppercase;box-shadow:0 6px 14px rgba(0,0,0,.35);transform:rotate(8deg);animation:pop 2.4s ease-in-out infinite}
 @keyframes pop{0%,100%{transform:rotate(8deg) scale(1)}50%{transform:rotate(8deg) scale(1.08)}}
@@ -144,15 +178,22 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ink);outline-offset
   .layer{background-size:100% auto;background-position:top center}
   .l-pool{background-image:url(assets/musica-bg-mobile.jpg)}
   .l-byc{background-image:url(assets/byc-bg-mobile.jpg)}
-  .maplegend{left:24px;top:82px;bottom:auto}
-  .mapv .heading{padding-top:470px}
+  .ttbox{--w:calc(100vw - 48px);left:24px;top:96px}
+  .nowp{--w:calc(100vw - 48px);left:24px;top:calc(96px + (100vw - 48px) * .7105 + 12px);min-height:48px;padding:5px 6px 5px 16px;gap:8px}
+  .np-idle{font-size:10px;letter-spacing:.14em}
+  .np-idle .arr::after{content:"↓"}
+
+  .np-btns{gap:6px;flex-shrink:0}
+  .np-on strong{font-size:13px}
+  .stopbtn{width:36px;height:36px;padding:0;justify-content:center}
+  .stopbtn span{display:none}
+  .openbtn{height:36px;padding:0 14px;font-size:10px;letter-spacing:.12em}
+  .ttstart{left:83%;top:72%;width:12%;height:11%}
+  .mapv .heading{padding-top:calc(96px + (100vw - 48px) * .7105 + 92px)}
   .bigdiscs{position:relative;right:auto;bottom:auto;padding:28px 24px 64px;gap:22px;--cv:220px}
   .bigdiscs,.bigdisc{align-items:flex-start;text-align:left}
   .bd-name{font-size:16px}
   .bd-go{font-size:10px}
-  .maplegend b,.maplegend span{font-size:10px}
-  .maplegend ol{flex-direction:row;gap:12px;margin-top:6px}
-  .maplegend li{font-size:9px;gap:5px}
   .plabel{font-size:9px}
   .tint,.wave,.tint-byc{display:none}
   .disc{width:76px;height:76px}
@@ -222,11 +263,72 @@ html{overflow-x:hidden}
   <div class="tint" aria-hidden="true"></div>
   <div class="layer tint-byc" aria-hidden="true"></div>
   <div class="layer l-mapbg" aria-hidden="true"></div>
-  <!-- Mapa de oyentes: dónde suena la música de DJ Chimango -->
-  <div class="mapwrap" id="mapwrap" aria-hidden="true">
-    <div class="map" id="map"></div>
-    <div id="pts"></div>
-    <div class="maplegend"><b>● Dónde se escucha</b><span id="mapnote">Últimos 28 días · Spotify for Artists</span><ol id="maptop"></ol></div>
+  <!-- Tocadiscos: al tocar una tapa, el disco se pone en el plato y gira -->
+  <div class="ttwrap">
+    <div class="ttbox" id="ttbox">
+      <div class="waves" aria-hidden="true"><i></i><i></i><i></i></div>
+      <svg class="tt-base" viewBox="0 0 760 540" aria-hidden="true">
+<defs>
+<linearGradient id="wood" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3a271c"/><stop offset=".5" stop-color="#2a1c14"/><stop offset="1" stop-color="#1c130e"/></linearGradient>
+<linearGradient id="plate" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#efe8da"/><stop offset="1" stop-color="#d9cfbd"/></linearGradient>
+<radialGradient id="rim" cx=".5" cy=".5" r=".5"><stop offset=".9" stop-color="#9c978c"/><stop offset=".96" stop-color="#d8d3c8"/><stop offset="1" stop-color="#7d786e"/></radialGradient>
+<radialGradient id="mat" cx=".45" cy=".4" r=".6"><stop offset="0" stop-color="#262626"/><stop offset="1" stop-color="#101010"/></radialGradient>
+<linearGradient id="metal" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8f8a80"/><stop offset=".5" stop-color="#e7e2d6"/><stop offset="1" stop-color="#8f8a80"/></linearGradient>
+<pattern id="grain" width="760" height="18" patternUnits="userSpaceOnUse"><path d="M0 9 C 120 3, 260 15, 380 8 S 640 2, 760 10" stroke="#000" stroke-opacity=".22" fill="none" stroke-width="1.2"/><path d="M0 15 C 160 11, 300 18, 470 13 S 680 17, 760 14" stroke="#7a5236" stroke-opacity=".18" fill="none"/></pattern>
+</defs>
+<!-- sombra -->
+<ellipse cx="380" cy="528" rx="360" ry="18" fill="#000" opacity=".5"/>
+<!-- base de madera -->
+<rect x="0" y="0" width="760" height="520" rx="26" fill="url(#wood)"/>
+<rect x="0" y="0" width="760" height="520" rx="26" fill="url(#grain)"/>
+<rect x="1.5" y="1.5" width="757" height="517" rx="25" fill="none" stroke="#f4f1ea" stroke-opacity=".12"/>
+<!-- placa superior -->
+<rect x="26" y="24" width="708" height="448" rx="14" fill="url(#plate)"/>
+<rect x="26" y="24" width="708" height="448" rx="14" fill="none" stroke="#0f2440" stroke-opacity=".18"/>
+<!-- plato -->
+<circle cx="262" cy="248" r="214" fill="#000" opacity=".18" transform="translate(4 8)"/>
+<circle cx="262" cy="248" r="214" fill="url(#rim)"/>
+<circle cx="262" cy="248" r="207" fill="none" stroke="#3cc6c4" stroke-width="5" stroke-dasharray="3 6.1"/>
+<circle cx="262" cy="248" r="200" fill="url(#mat)"/>
+<g fill="none" stroke="#f4f1ea" stroke-opacity=".05"><circle cx="262" cy="248" r="180"/><circle cx="262" cy="248" r="160"/><circle cx="262" cy="248" r="140"/><circle cx="262" cy="248" r="120"/><circle cx="262" cy="248" r="100"/><circle cx="262" cy="248" r="80"/></g>
+<circle cx="262" cy="248" r="9" fill="url(#metal)"/>
+<!-- base del brazo -->
+<circle cx="628" cy="104" r="48" fill="#cfc7b6"/>
+<circle cx="628" cy="104" r="40" fill="url(#metal)" stroke="#0f2440" stroke-opacity=".25"/>
+<circle cx="628" cy="104" r="16" fill="#1a1a1a"/>
+<!-- apoyabrazo -->
+<rect x="646" y="356" width="22" height="34" rx="6" fill="#1a1a1a"/>
+<!-- controles -->
+<g font-family="DM Mono, monospace" font-size="11" fill="#0f2440" letter-spacing="2">
+<text x="560" y="442">33</text><text x="600" y="442">45</text>
+<circle cx="568" cy="420" r="5" fill="#3cc6c4"/><circle cx="608" cy="420" r="5" fill="none" stroke="#0f2440" stroke-opacity=".5"/>
+<rect x="650" y="404" width="58" height="34" rx="17" fill="#e8322b"/><text id="startTxt" x="679" y="425" fill="#fff" font-size="10" text-anchor="middle">START</text>
+<rect x="704" y="176" width="10" height="130" rx="5" fill="#0f2440" opacity=".18"/><rect x="696" y="222" width="26" height="14" rx="3" fill="#0f2440"/>
+<text x="688" y="330" font-size="9" opacity=".7">PITCH</text>
+</g>
+<!-- frente -->
+<g font-family="Syne, sans-serif" font-weight="800" font-size="13" fill="#f4f1ea" letter-spacing="5" opacity=".85"><text x="40" y="502">DJ CHIMANGO</text></g>
+<g font-family="DM Mono, monospace" font-size="10" fill="#f4f1ea" letter-spacing="3" opacity=".55"><text x="560" y="502">STEREO &#183; 1975</text></g>
+</svg>
+      <div class="rec" id="rec-byc" aria-hidden="true"><div class="vinyl"><div class="vlabel" style="background-image:url(assets/byc-cover.jpg)"></div></div><div class="sheen"></div></div>
+      <div class="rec" id="rec-locoto" aria-hidden="true"><div class="vinyl"><div class="vlabel" style="background-image:url(assets/locoto-cover.jpg)"></div></div><div class="sheen"></div></div>
+      <svg class="tt-arm" viewBox="0 0 760 540" aria-hidden="true">
+<defs><linearGradient id="armg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#9a958a"/><stop offset=".5" stop-color="#f1ece1"/><stop offset="1" stop-color="#8f8a80"/></linearGradient></defs>
+<g class="arm">
+<rect x="618" y="18" width="22" height="34" rx="5" fill="#1a1a1a"/>
+<line x1="628" y1="104" x2="628" y2="40" stroke="url(#armg)" stroke-width="7" stroke-linecap="round"/>
+<path d="M628 104 L632 318 Q634 338 622 352" fill="none" stroke="#000" stroke-opacity=".35" stroke-width="9" stroke-linecap="round" transform="translate(5 8)"/>
+<path d="M628 104 L632 318 Q634 338 622 352" fill="none" stroke="url(#armg)" stroke-width="7" stroke-linecap="round"/>
+<g transform="rotate(24 618 362)"><rect x="604" y="348" width="28" height="40" rx="4" fill="#0f2440"/><rect x="610" y="382" width="16" height="8" rx="2" fill="#e8322b"/></g>
+<circle cx="628" cy="104" r="11" fill="#f4f1ea"/>
+</g></svg>
+      <button class="ttstart" id="ttStart" type="button" aria-label="Poner a girar el tocadiscos"></button>
+    </div>
+    <div class="nowp" id="nowp">
+      <span class="np-idle">Elegí un disco y ponelo a girar <b class="arr"></b></span>
+      <span class="np-on"><span class="eqd" aria-hidden="true"><i></i><i></i><i></i></span><strong id="npName"></strong></span>
+      <span class="np-btns"><button class="stopbtn" id="stopBtn" type="button" aria-label="Detener el tocadiscos"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><rect width="12" height="12" rx="2" fill="currentColor"/></svg><span>Detener</span></button><button class="openbtn" id="openBtn" type="button">Ver el disco →</button></span>
+    </div>
   </div>
   <div class="ripples fx" aria-hidden="true"><div class="ripple"></div><div class="ripple"></div><div class="ripple"></div></div>
   <svg class="wave fx" aria-hidden="true" viewBox="0 0 1600 60" fill="none"><path d="M0 30 Q 40 6 80 30 T 160 30 T 240 30 T 320 30 T 400 30 T 480 30 T 560 30 T 640 30 T 720 30 T 800 30 T 880 30 T 960 30 T 1040 30 T 1120 30 T 1200 30 T 1280 30 T 1360 30 T 1440 30 T 1520 30 T 1600 30" stroke="#fff" stroke-width="1.5"/></svg>
@@ -263,18 +365,18 @@ html{overflow-x:hidden}
 
   <!-- Portada de la sección: discos grandes -->
   <section class="bigdiscs" aria-label="Discos">
-    <button class="bigdisc" type="button" data-go="byc" aria-label="Ir a Brujo y Cazador, nuevo">
-      <span class="cover disc-b"><span class="badge">¡Nuevo!</span></span>
-      <span class="bd-name">Brujo y Cazador</span><span class="bd-go">20 de noviembre →</span>
+    <button class="bigdisc" type="button" data-deck="byc" aria-label="Poner Brujo y Cazador en el tocadiscos">
+      <span class="cover disc-b"><span class="badge">¡Nuevo!</span><span class="onplate">En el plato</span></span>
+      <span class="bd-name">Brujo y Cazador</span><span class="bd-go">Ponelo a girar</span>
     </button>
-    <button class="bigdisc" type="button" data-go="locoto" aria-label="Ir a Locoto Trip">
-      <span class="cover disc-l"></span>
-      <span class="bd-name">Locoto Trip</span><span class="bd-go">2018 · 11 temas →</span>
+    <button class="bigdisc" type="button" data-deck="locoto" aria-label="Poner Locoto Trip en el tocadiscos">
+      <span class="cover disc-l"><span class="onplate">En el plato</span></span>
+      <span class="bd-name">Locoto Trip</span><span class="bd-go">Ponelo a girar</span>
     </button>
   </section>
 
   <section class="music" aria-label="Disco">
-    <button class="back" type="button" data-go="map" style="align-self:flex-start">← Volver al mapa</button>
+    <button class="back" type="button" data-go="map" style="align-self:flex-start">← Volver al tocadiscos</button>
     <div class="discs">
       <button class="disc disc-l" type="button" data-album="locoto" aria-pressed="false" aria-label="Ver Locoto Trip"></button>
       <button class="disc disc-b" type="button" data-album="byc" aria-pressed="true" aria-label="Ver Brujo y Cazador, nuevo"><span class="badge">¡Nuevo!</span></button>
@@ -346,68 +448,6 @@ html{overflow-x:hidden}
   function go(id){ if (id === 'map') history.replaceState(null, '', location.pathname); else history.replaceState(null, '', '#' + id); show(id); window.scrollTo(0, 0); }
   show(location.hash.slice(1));
   window.addEventListener('hashchange', function(){ show(location.hash.slice(1)); });
-  /* ============================================================
-     MAPA DE OYENTES — datos de Spotify for Artists (Audiencia › Ubicación)
-     Planilla de Google publicada como CSV, o el archivo oyentes.csv de esta carpeta.
-     Columnas: ciudad | pais | oyentes | lat | lng   (lat y lng son opcionales)
-     ============================================================ */
-  var OYENTES_CSV_URL = '';
-  var COORDS = {
-    'neuquen':[-38.95,-68.06],'cipolletti':[-38.93,-67.99],'general roca':[-39.03,-67.58],'bariloche':[-41.13,-71.31],'san carlos de bariloche':[-41.13,-71.31],
-    'san martin de los andes':[-40.16,-71.35],'villa la angostura':[-40.76,-71.65],'viedma':[-40.81,-62.99],'bahia blanca':[-38.72,-62.27],'mar del plata':[-38.00,-57.56],
-    'buenos aires':[-34.60,-58.38],'caba':[-34.60,-58.38],'la plata':[-34.92,-57.95],'rosario':[-32.95,-60.64],'cordoba':[-31.42,-64.18],'mendoza':[-32.89,-68.84],
-    'salta':[-24.79,-65.41],'tucuman':[-26.81,-65.22],'san miguel de tucuman':[-26.81,-65.22],'jujuy':[-24.19,-65.30],'santa fe':[-31.63,-60.70],'parana':[-31.73,-60.53],
-    'corrientes':[-27.47,-58.83],'posadas':[-27.37,-55.90],'resistencia':[-27.45,-58.99],'san juan':[-31.54,-68.54],'san luis':[-33.30,-66.34],'santa rosa':[-36.62,-64.29],
-    'rawson':[-43.30,-65.10],'trelew':[-43.25,-65.31],'puerto madryn':[-42.77,-65.04],'comodoro rivadavia':[-45.86,-67.48],'rio gallegos':[-51.62,-69.22],'ushuaia':[-54.80,-68.30],
-    'el bolson':[-41.96,-71.53],'esquel':[-42.91,-71.32],'santiago':[-33.45,-70.67],'valparaiso':[-33.05,-71.62],'concepcion':[-36.83,-73.05],'temuco':[-38.74,-72.60],
-    'puerto montt':[-41.47,-72.94],'montevideo':[-34.90,-56.16],'asuncion':[-25.26,-57.58],'la paz':[-16.50,-68.15],'lima':[-12.05,-77.04],'cusco':[-13.53,-71.97],
-    'bogota':[4.71,-74.07],'medellin':[6.24,-75.58],'quito':[-0.18,-78.47],'caracas':[10.48,-66.90],'sao paulo':[-23.55,-46.63],'rio de janeiro':[-22.91,-43.17],
-    'florianopolis':[-27.59,-48.55],'porto alegre':[-30.03,-51.23],'ciudad de mexico':[19.43,-99.13],'cdmx':[19.43,-99.13],'mexico city':[19.43,-99.13],'guadalajara':[20.66,-103.35],
-    'monterrey':[25.69,-100.32],'tulum':[20.21,-87.46],'la habana':[23.11,-82.37],'san jose':[9.93,-84.08],'panama':[8.98,-79.52],'miami':[25.76,-80.19],'new york':[40.71,-74.01],
-    'nueva york':[40.71,-74.01],'los angeles':[34.05,-118.24],'san francisco':[37.77,-122.42],'toronto':[43.65,-79.38],'montreal':[45.50,-73.57],'madrid':[40.42,-3.70],
-    'barcelona':[41.39,2.17],'valencia':[39.47,-0.38],'sevilla':[37.39,-5.98],'ibiza':[38.91,1.43],'palma':[39.57,2.65],'lisboa':[38.72,-9.14],'porto':[41.15,-8.61],
-    'paris':[48.86,2.35],'londres':[51.51,-0.13],'london':[51.51,-0.13],'berlin':[52.52,13.40],'munich':[48.14,11.58],'amsterdam':[52.37,4.90],'roma':[41.90,12.50],
-    'milan':[45.46,9.19],'zurich':[47.38,8.54],'viena':[48.21,16.37],'praga':[50.08,14.44],'estocolmo':[59.33,18.07],'copenhague':[55.68,12.57],'tel aviv':[32.09,34.78],
-    'tokio':[35.68,139.69],'tokyo':[35.68,139.69],'sidney':[-33.87,151.21],'sydney':[-33.87,151.21],'melbourne':[-37.81,144.96]
-  };
-  function norm(t){ return (t||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').trim(); }
-  function csvRows(text){
-    var rows = [], row = [], f = '', q = false;
-    for (var i = 0; i < text.length; i++){ var c = text[i];
-      if (q){ if (c === '"'){ if (text[i+1] === '"'){ f += '"'; i++; } else q = false; } else f += c; }
-      else if (c === '"') q = true; else if (c === ','){ row.push(f); f = ''; }
-      else if (c === '\n' || c === '\r'){ if (c === '\r' && text[i+1] === '\n') i++; row.push(f); rows.push(row); row = []; f = ''; }
-      else f += c; }
-    if (f !== '' || row.length){ row.push(f); rows.push(row); }
-    return rows.filter(function(r){ return r.some(function(x){ return x.trim(); }); });
-  }
-  function geocode(city, country){
-    // ciudades que no están en la lista: se buscan una vez en OpenStreetMap y se guardan en el navegador
-    var key = 'geo:' + norm(city) + ',' + norm(country);
-    try { var hit = localStorage.getItem(key); if (hit) return Promise.resolve(JSON.parse(hit)); } catch(e){}
-    var u = 'https://nominatim.openstreetmap.org/search?format=json&limit=1&q=' + encodeURIComponent(city + ', ' + country);
-    return fetch(u).then(function(r){ return r.json(); }).then(function(j){
-      if (!j[0]) return null; var ll = [parseFloat(j[0].lat), parseFloat(j[0].lon)];
-      try { localStorage.setItem(key, JSON.stringify(ll)); } catch(e){} return ll;
-    }).catch(function(){ return null; });
-  }
-  var mapEl = document.getElementById('map'), ptsEl = document.getElementById('pts'), cities = [];
-  function layoutMap(){
-    var W = page.clientWidth, H = page.clientHeight, mob = window.matchMedia('(max-width: 860px)').matches, K, X0, Y0;
-    if (mob){ K = W / 165; X0 = -80 * K; Y0 = 130; }
-    else { K = Math.max(2.2, Math.min(3.3, W * 0.82 / 360, (H - 300) / 132)); X0 = (W - 360 * K) / 2 - 16; Y0 = Math.max(120, (H - 132 * K) / 2 - 80); }
-    mapEl.style.left = X0 + 'px'; mapEl.style.top = Y0 + 'px'; mapEl.style.width = (360 * K) + 'px'; mapEl.style.height = (132 * K) + 'px';
-    var max = cities.reduce(function(m, c){ return Math.max(m, c.n); }, 1), html = '', placed = [];
-    cities.forEach(function(c, i){
-      var x = X0 + (c.lng + 180) * K, y = Y0 + (76 - c.lat) * K, sz = Math.round((mob ? 6 : 8) + Math.sqrt(c.n / max) * (mob ? 12 : 18));
-      html += '<span class="pt" style="left:' + x + 'px;top:' + y + 'px;width:' + sz + 'px;height:' + sz + 'px;animation-delay:' + (-(i * 0.37) % 2.8) + 's"></span>';
-    });
-    ptsEl.innerHTML = html;
-    // ranking de ciudades debajo del título del mapa
-    document.getElementById('maptop').innerHTML = cities.slice(0, mob ? 3 : 5).map(function(c, i){
-      return '<li><em>' + (i + 1) + '</em>' + c.city.replace(/[<>&]/g, '') + (mob ? '' : '<small>' + c.n + '</small>') + '</li>';
-    }).join('');
-  }
   var page = document.querySelector('.page'), smoke = document.getElementById('smoke');
   // Humo animado sobre el retrato de la tapa de Brujo y Cazador
   function placeSmoke(){
@@ -421,24 +461,21 @@ html{overflow-x:hidden}
     var t = Math.round((f[2] - f[0]) * s * 0.8); smoke.style.setProperty('--t1', t + 'px'); smoke.style.setProperty('--t2', Math.round(t * 1.5) + 'px');
   }
   placeSmoke(); window.addEventListener('resize', placeSmoke);
-  fetch(OYENTES_CSV_URL || 'oyentes.csv', { cache: 'no-store' }).then(function(r){ if (!r.ok) throw 0; return r.text(); }).then(function(t){
-    var rows = csvRows(t), head = rows.shift().map(norm), ix = function(n){ return head.indexOf(n); };
-    var jobs = rows.map(function(r){
-      var city = (r[ix('ciudad')] || '').trim(), country = (r[ix('pais')] || '').trim(), n = parseFloat(r[ix('oyentes')]) || 1;
-      var lat = parseFloat(r[ix('lat')]), lng = parseFloat(r[ix('lng')]);
-      if (!city) return Promise.resolve(null);
-      if (!isNaN(lat) && !isNaN(lng)) return Promise.resolve({ city: city, n: n, lat: lat, lng: lng });
-      var known = COORDS[norm(city)];
-      if (known) return Promise.resolve({ city: city, n: n, lat: known[0], lng: known[1] });
-      return geocode(city, country).then(function(ll){ return ll ? { city: city, n: n, lat: ll[0], lng: ll[1] } : null; });
-    });
-    return Promise.all(jobs);
-  }).then(function(list){
-    cities = list.filter(Boolean).sort(function(a, b){ return b.n - a.n; });
-    if (!cities.length) document.getElementById('mapnote').textContent = 'Muy pronto: los lugares donde suena DJ Chimango';
-    layoutMap();
-  }).catch(function(){ document.getElementById('mapnote').textContent = 'Muy pronto: los lugares donde suena DJ Chimango'; layoutMap(); });
-  window.addEventListener('resize', layoutMap);
+  /* Tocadiscos */
+  var deck = '', NAMES = { byc: 'Brujo y Cazador', locoto: 'Locoto Trip' }, startTxt = document.getElementById('startTxt');
+  function setDeck(id){
+    deck = id || '';
+    ['byc', 'locoto'].forEach(function(k){ document.getElementById('rec-' + k).classList.toggle('in', deck === k); });
+    document.querySelectorAll('.bigdisc').forEach(function(b){ b.classList.toggle('sel', b.dataset.deck === deck); b.classList.toggle('dim', !!deck && b.dataset.deck !== deck); });
+    document.body.classList.toggle('playing', !!deck);
+    document.getElementById('npName').textContent = deck ? NAMES[deck] : '';
+    if (startTxt) startTxt.textContent = deck ? 'STOP' : 'START';
+    document.getElementById('ttStart').setAttribute('aria-label', deck ? 'Detener el tocadiscos' : 'Poner a girar el tocadiscos');
+  }
+  document.querySelectorAll('.bigdisc').forEach(function(b){ b.addEventListener('click', function(){ setDeck(b.dataset.deck); if (window.matchMedia('(max-width: 860px)').matches) window.scrollTo({ top: 0, behavior: 'smooth' }); }); });
+  document.getElementById('stopBtn').addEventListener('click', function(){ setDeck(''); });
+  document.getElementById('ttStart').addEventListener('click', function(){ setDeck(deck ? '' : 'byc'); });
+  document.getElementById('openBtn').addEventListener('click', function(){ if (deck) go(deck); });
 
 
   // Cuenta regresiva al lanzamiento (20/11/2026)
@@ -468,6 +505,16 @@ html{overflow-x:hidden}
       lines.forEach(function(l){ l.style.fontSize = ''; });
       var sizes = lines.map(function(l){ var base = parseFloat(getComputedStyle(l).fontSize); return base * W / l.offsetWidth; });
       if (mode === 'shrink'){ var base = parseFloat(getComputedStyle(lines[0]).fontSize), s = Math.min.apply(null, sizes.concat([base])); lines.forEach(function(l){ l.style.fontSize = (s * 0.99) + 'px'; }); }
+      else if (mode === 'justify'){
+        // mismo tamaño para todas las líneas; las más cortas se estiran con espacio entre letras
+        var s2 = Math.min.apply(null, sizes) * 0.995;
+        lines.forEach(function(l){ l.style.fontSize = s2 + 'px'; l.style.letterSpacing = ''; l.style.marginRight = ''; });
+        lines.forEach(function(l){
+          var n = l.textContent.trim().length; if (n < 2) return;
+          var extra = (W - l.offsetWidth) / (n - 1);
+          if (extra > 0.5){ var ls = parseFloat(getComputedStyle(l).letterSpacing) || 0; l.style.letterSpacing = (ls + extra) + 'px'; l.style.marginRight = (-(ls + extra)) + 'px'; }
+        });
+      }
       else lines.forEach(function(l, i){ l.style.fontSize = (sizes[i] * 0.995) + 'px'; });
     });
   }

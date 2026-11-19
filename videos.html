@@ -187,6 +187,16 @@ html{overflow-x:hidden}
       lines.forEach(function(l){ l.style.fontSize = ''; });
       var sizes = lines.map(function(l){ var base = parseFloat(getComputedStyle(l).fontSize); return base * W / l.offsetWidth; });
       if (mode === 'shrink'){ var base = parseFloat(getComputedStyle(lines[0]).fontSize), s = Math.min.apply(null, sizes.concat([base])); lines.forEach(function(l){ l.style.fontSize = (s * 0.99) + 'px'; }); }
+      else if (mode === 'justify'){
+        // mismo tamaño para todas las líneas; las más cortas se estiran con espacio entre letras
+        var s2 = Math.min.apply(null, sizes) * 0.995;
+        lines.forEach(function(l){ l.style.fontSize = s2 + 'px'; l.style.letterSpacing = ''; l.style.marginRight = ''; });
+        lines.forEach(function(l){
+          var n = l.textContent.trim().length; if (n < 2) return;
+          var extra = (W - l.offsetWidth) / (n - 1);
+          if (extra > 0.5){ var ls = parseFloat(getComputedStyle(l).letterSpacing) || 0; l.style.letterSpacing = (ls + extra) + 'px'; l.style.marginRight = (-(ls + extra)) + 'px'; }
+        });
+      }
       else lines.forEach(function(l, i){ l.style.fontSize = (sizes[i] * 0.995) + 'px'; });
     });
   }
